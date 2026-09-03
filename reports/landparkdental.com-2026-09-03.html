@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404/410 Audit — landparkdental.com</title>
+<style>
+:root{
+  --ground:#eef1f5; --panel:#ffffff; --surface:#f5f7fa; --line:#e2e7ee;
+  --ink:#171a1f; --ink-2:#59636f; --ink-3:#8892a0;
+  --accent:#b3261e; --accent-soft:#fce9e7;
+  --ok:#12693a; --ok-bg:#e4f4ea; --err:#b3261e; --err-bg:#fce9e7;
+  --warn:#8a5300; --warn-bg:#fdf0dc; --none:#5b6672; --none-bg:#eceff3;
+  --ui:ui-sans-serif,"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#0f1216; --panel:#171b21; --surface:#1d222a; --line:#2b323c;
+    --ink:#e7ebf0; --ink-2:#a2adba; --ink-3:#77828f;
+    --accent:#f2938c; --accent-soft:#33191a;
+    --ok:#6cc98a; --ok-bg:#122a1c; --err:#f2938c; --err-bg:#33191a;
+    --warn:#e8b25f; --warn-bg:#2f2413; --none:#9aa4b0; --none-bg:#222831;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0f1216; --panel:#171b21; --surface:#1d222a; --line:#2b323c;
+  --ink:#e7ebf0; --ink-2:#a2adba; --ink-3:#77828f;
+  --accent:#f2938c; --accent-soft:#33191a;
+  --ok:#6cc98a; --ok-bg:#122a1c; --err:#f2938c; --err-bg:#33191a;
+  --warn:#e8b25f; --warn-bg:#2f2413; --none:#9aa4b0; --none-bg:#222831;
+}
+:root[data-theme="light"]{
+  --ground:#eef1f5; --panel:#ffffff; --surface:#f5f7fa; --line:#e2e7ee;
+  --ink:#171a1f; --ink-2:#59636f; --ink-3:#8892a0;
+  --accent:#b3261e; --accent-soft:#fce9e7;
+  --ok:#12693a; --ok-bg:#e4f4ea; --err:#b3261e; --err-bg:#fce9e7;
+  --warn:#8a5300; --warn-bg:#fdf0dc; --none:#5b6672; --none-bg:#eceff3;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--ui);background:var(--ground);color:var(--ink);
+     padding:24px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:#1558d6}
+:root[data-theme="dark"] a, @media (prefers-color-scheme:dark){a{color:#84b4fa}}
+.wrap{max-width:1220px;margin:0 auto;background:var(--panel);border:1px solid var(--line);
+      border-radius:14px;padding:clamp(20px,4vw,36px);display:flex;flex-direction:column;gap:26px}
+.head{display:flex;flex-direction:column;gap:4px}
+h1{font-size:clamp(21px,3vw,27px);letter-spacing:-.02em;text-wrap:balance}
+.sub{color:var(--ink-2);font-size:14px}
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+      padding:14px 16px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.meta span{color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:600}
+.meta code{font-family:var(--mono);font-size:12.5px;word-break:break-all}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--bar,var(--none));
+      border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.card h3{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.card .n{font-size:27px;font-weight:650;color:var(--bar,var(--ink));font-variant-numeric:tabular-nums}
+.c-total{--bar:var(--ink-2)}.c-ok{--bar:var(--ok)}.c-problem{--bar:var(--err)}
+.c-redirect{--bar:var(--warn)}.c-none{--bar:var(--none)}.c-unresolved{--bar:var(--ink-3)}
+
+h2{font-size:16px;letter-spacing:-.01em}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
+thead th{background:var(--surface);color:var(--ink-2);padding:10px 12px;text-align:left;
+         font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+         border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface)}
+td.n{color:var(--ink-3);font-variant-numeric:tabular-nums}
+td.u{max-width:340px}
+td.u a{font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere;text-decoration:none}
+td.u a:hover{text-decoration:underline}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;
+      font-weight:600;white-space:nowrap}
+.p-ok{background:var(--ok-bg);color:var(--ok)}
+.p-not_found,.p-gone,.p-error,.p-unreachable{background:var(--err-bg);color:var(--err)}
+.p-redirect{background:var(--warn-bg);color:var(--warn)}
+.v-should_redirect,.v-wrong_redirect{background:var(--err-bg);color:var(--err)}
+.v-ok_as_is{background:var(--ok-bg);color:var(--ok)}
+.v-uncertain{background:var(--none-bg);color:var(--none)}
+td.arrow{color:var(--ink-2);font-family:var(--mono);font-size:12.5px}
+td.arrow a{font-family:var(--mono);text-decoration:none}
+.types{color:var(--ink-2)}
+
+.detail{display:flex;flex-direction:column;gap:12px}
+.durl{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--bar,var(--none));
+      border-radius:10px;padding:14px 16px}
+.durl.problem{--bar:var(--err)}
+.durl h3{font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.durl h3 a{font-family:var(--mono);text-decoration:none}
+.durl h3 a:hover{text-decoration:underline}
+.durl .t{font-size:12px;color:var(--ink-2);margin:3px 0 8px}
+.durl .chain{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-bottom:6px}
+.durl .reason{font-size:13px;padding:8px 0 0;border-top:1px solid var(--line);margin-top:4px}
+.durl .reason b{font-weight:600}
+.durl .suggest{font-family:var(--mono);font-size:12.5px;margin-top:4px}
+
+.unresolved{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+            font-size:13px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+.unresolved li{margin-left:18px}
+
+.foot{padding-top:16px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12px}
+@media (max-width:620px){body{padding:12px}.wrap{border-radius:10px}}
+@media print{body{background:#fff;padding:0}.wrap{border:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>404 / 410 / Redirect Audit</h1>
+    <p class="sub">Every URL Google has indexed for landparkdental.com, checked against its live sitemap</p>
+  </div>
+
+  <div class="meta">
+    <span><b>Site</b> &nbsp;<code>landparkdental.com</code></span>
+    <span><b>Sitemap</b> &nbsp;<code>https://www.landparkdental.com/sitemap_index.xml</code></span>
+    <span><b>Generated</b> &nbsp;2026-09-03 18:48:41</span>
+    <span><b>Indexed URLs checked</b> &nbsp;32</span>
+  </div>
+
+  <div class="cards">
+    <div class="card c-total"><h3>Checked</h3><div class="n">32</div></div>
+    <div class="card c-ok"><h3>Live &amp; OK</h3><div class="n">28</div></div>
+    <div class="card c-problem"><h3>Needs fixing</h3><div class="n">1</div></div>
+    <div class="card c-redirect"><h3>Redirects</h3><div class="n">2</div></div>
+    <div class="card c-ok"><h3>Correctly gone</h3><div class="n">3</div></div>
+    <div class="card c-unresolved"><h3>Uncertain</h3><div class="n">0</div></div>
+  </div>
+
+  <div>
+    <h2>All indexed URLs</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>#</th><th>Indexed URL</th><th>Status</th><th>Redirects to</th>
+          <th>AI verdict</th><th>Suggested fix</th></tr></thead>
+        <tbody>
+      <tr>
+        <td class="n">1</td>
+        <td class="u"><a href="https://www.landparkdental.com" target="_blank" rel="noopener">https://www.landparkdental.com</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">2</td>
+        <td class="u"><a href="https://www.landparkdental.com/orthodontics/" target="_blank" rel="noopener">https://www.landparkdental.com/orthodontics/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">3</td>
+        <td class="u"><a href="https://www.landparkdental.com/services/" target="_blank" rel="noopener">https://www.landparkdental.com/services/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.landparkdental.com/general-and-preventive-care/" target="_blank" rel="noopener">https://www.landparkdental.com/general-and-preventive-care/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.landparkdental.com/" target="_blank" rel="noopener">https://www.landparkdental.com/</a></td>
+      </tr>
+      <tr>
+        <td class="n">4</td>
+        <td class="u"><a href="https://www.landparkdental.com/dental-emergency/" target="_blank" rel="noopener">https://www.landparkdental.com/dental-emergency/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">5</td>
+        <td class="u"><a href="https://www.landparkdental.com/membership-plan/" target="_blank" rel="noopener">https://www.landparkdental.com/membership-plan/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">6</td>
+        <td class="u"><a href="https://www.landparkdental.com/routine-cleanings/" target="_blank" rel="noopener">https://www.landparkdental.com/routine-cleanings/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">7</td>
+        <td class="u"><a href="https://www.landparkdental.com/patient-information/" target="_blank" rel="noopener">https://www.landparkdental.com/patient-information/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.landparkdental.com/patient-forms/" target="_blank" rel="noopener">https://www.landparkdental.com/patient-forms/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">8</td>
+        <td class="u"><a href="https://www.landparkdental.com/implant-crowns/" target="_blank" rel="noopener">https://www.landparkdental.com/implant-crowns/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">9</td>
+        <td class="u"><a href="https://www.landparkdental.com/tmj-treatment/" target="_blank" rel="noopener">https://www.landparkdental.com/tmj-treatment/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">10</td>
+        <td class="u"><a href="https://www.landparkdental.com/success-stories/" target="_blank" rel="noopener">https://www.landparkdental.com/success-stories/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">11</td>
+        <td class="u"><a href="https://www.landparkdental.com/porcelain-veneers/" target="_blank" rel="noopener">https://www.landparkdental.com/porcelain-veneers/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">12</td>
+        <td class="u"><a href="https://www.landparkdental.com/privacy-policy/" target="_blank" rel="noopener">https://www.landparkdental.com/privacy-policy/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">13</td>
+        <td class="u"><a href="https://www.landparkdental.com/restorative-dentistry/" target="_blank" rel="noopener">https://www.landparkdental.com/restorative-dentistry/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">14</td>
+        <td class="u"><a href="https://www.landparkdental.com/patient-forms/" target="_blank" rel="noopener">https://www.landparkdental.com/patient-forms/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">15</td>
+        <td class="u"><a href="https://www.landparkdental.com/about-us/" target="_blank" rel="noopener">https://www.landparkdental.com/about-us/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">16</td>
+        <td class="u"><a href="https://www.landparkdental.com/cosmetic-dentistry/" target="_blank" rel="noopener">https://www.landparkdental.com/cosmetic-dentistry/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">17</td>
+        <td class="u"><a href="https://www.landparkdental.com/implant-restorations/" target="_blank" rel="noopener">https://www.landparkdental.com/implant-restorations/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">18</td>
+        <td class="u"><a href="https://www.landparkdental.com/periodontal-care/" target="_blank" rel="noopener">https://www.landparkdental.com/periodontal-care/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">19</td>
+        <td class="u"><a href="https://www.landparkdental.com/botox-for-bruxism/" target="_blank" rel="noopener">https://www.landparkdental.com/botox-for-bruxism/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">20</td>
+        <td class="u"><a href="https://www.landparkdental.com/single-tooth-implants/" target="_blank" rel="noopener">https://www.landparkdental.com/single-tooth-implants/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">21</td>
+        <td class="u"><a href="https://www.landparkdental.com/meet-the-team/" target="_blank" rel="noopener">https://www.landparkdental.com/meet-the-team/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">22</td>
+        <td class="u"><a href="https://www.landparkdental.com/oral-sleep-appliances/" target="_blank" rel="noopener">https://www.landparkdental.com/oral-sleep-appliances/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">23</td>
+        <td class="u"><a href="https://www.landparkdental.com/all-on-x/" target="_blank" rel="noopener">https://www.landparkdental.com/all-on-x/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">24</td>
+        <td class="u"><a href="https://www.landparkdental.com/clear-braces-invisalign/" target="_blank" rel="noopener">https://www.landparkdental.com/clear-braces-invisalign/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">25</td>
+        <td class="u"><a href="https://www.landparkdental.com/zoom-teeth-whitening/" target="_blank" rel="noopener">https://www.landparkdental.com/zoom-teeth-whitening/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">26</td>
+        <td class="u"><a href="https://www.landparkdental.com/root-canal-therapy/" target="_blank" rel="noopener">https://www.landparkdental.com/root-canal-therapy/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">27</td>
+        <td class="u"><a href="https://www.landparkdental.com/same-day-crowns/" target="_blank" rel="noopener">https://www.landparkdental.com/same-day-crowns/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">28</td>
+        <td class="u"><a href="https://www.landparkdental.com/sleep-apnea-treatment/" target="_blank" rel="noopener">https://www.landparkdental.com/sleep-apnea-treatment/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">29</td>
+        <td class="u"><a href="https://www.landparkdental.com/meet-dr-harjot-kaur/" target="_blank" rel="noopener">https://www.landparkdental.com/meet-dr-harjot-kaur/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">30</td>
+        <td class="u"><a href="https://www.landparkdental.com/meet-dr-narinder-mahal/" target="_blank" rel="noopener">https://www.landparkdental.com/meet-dr-narinder-mahal/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">31</td>
+        <td class="u"><a href="https://www.landparkdental.com/staff/angela-rodriguez/" target="_blank" rel="noopener">https://www.landparkdental.com/staff/angela-rodriguez/</a></td>
+        <td><span class="pill p-not_found">404 Not Found</span></td>
+        <td class="arrow">—</td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">32</td>
+        <td class="u"><a href="https://www.landparkdental.com/blog/testimonials/" target="_blank" rel="noopener">https://www.landparkdental.com/blog/testimonials/</a></td>
+        <td><span class="pill p-not_found">404 Not Found</span></td>
+        <td class="arrow">—</td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="detail"><h2>Pages needing a look</h2>
+    <div class="durl problem">
+      <h3><a href="https://www.landparkdental.com/services/" target="_blank" rel="noopener">https://www.landparkdental.com/services/</a></h3>
+      <div class="t">Redirects → 200 &nbsp;·&nbsp; indexed as "Dental Services Sacramento, CA"</div>
+      <div class="chain">https://www.landparkdental.com/services/ [301] → https://www.landparkdental.com/general-and-preventive-care/ [200]</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original URL was for a general &#x27;Dental Services&#x27; page, but it now redirects to a page for a specific type of service (General &amp; Preventive Dentistry), which narrows the scope significantly. A user looking for &#x27;services&#x27; would expect a broader overview.</div>
+      <div class="suggest">→ suggested: <a href="https://www.landparkdental.com/" target="_blank" rel="noopener">https://www.landparkdental.com/</a></div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.landparkdental.com/patient-information/" target="_blank" rel="noopener">https://www.landparkdental.com/patient-information/</a></h3>
+      <div class="t">Redirects → 200 &nbsp;·&nbsp; indexed as "Patient Information Land Park Dental | New Patient Info"</div>
+      <div class="chain">https://www.landparkdental.com/patient-information/ [301] → https://www.landparkdental.com/patient-forms/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original &#x27;Patient Information&#x27; page correctly redirects to the &#x27;New Patient Forms&#x27; page, which is a highly relevant and specific subset of patient information for new patients.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.landparkdental.com/staff/angela-rodriguez/" target="_blank" rel="noopener">https://www.landparkdental.com/staff/angela-rodriguez/</a></h3>
+      <div class="t">404 Not Found &nbsp;·&nbsp; indexed as "Angela - Land Park Dental Sacramento California"</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original page was a staff profile for Angela, and none of the provided candidate URLs are relevant to staff profiles or team members.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.landparkdental.com/blog/testimonials/" target="_blank" rel="noopener">https://www.landparkdental.com/blog/testimonials/</a></h3>
+      <div class="t">404 Not Found &nbsp;·&nbsp; indexed as "Patti Stathos - Land Park Dental Sacramento California"</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original page was a specific patient testimonial, and none of the provided live pages are relevant to testimonials or patient stories.</div>
+    </div>
+  </div>
+
+  <div>
+    <h2>Indexed but URL undetermined (27)</h2>
+    <div class="unresolved">
+      Google showed a generic label instead of a URL for these — likely deep in the
+      result pages, where Google's breadcrumb display gets less literal. Look them
+      up individually:
+      <ul>
+        <li>Periodontal Care, Diagnosis, and Treatment — <a href="https://www.google.com/search?q=%22Periodontal%20Care%2C%20Diagnosis%2C%20and%20Treatment%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Invisalign Clear Braces Sacramento, CA — <a href="https://www.google.com/search?q=%22Invisalign%20Clear%20Braces%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Bridges Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Bridges%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Center Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Center%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Family Dentist Sacramento, CA — <a href="https://www.google.com/search?q=%22Family%20Dentist%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Composite Fillings Sacramento, CA — <a href="https://www.google.com/search?q=%22Composite%20Fillings%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Implant Dentist Sacramento, CA — <a href="https://www.google.com/search?q=%22Implant%20Dentist%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Smile Makeover Sacramento, CA — <a href="https://www.google.com/search?q=%22Smile%20Makeover%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Richard Anglin - Land Park Dental Sacramento California — <a href="https://www.google.com/search?q=%22Richard%20Anglin%20-%20Land%20Park%20Dental%20Sacramento%20California%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>General &amp; Preventive Dentistry Sacramento, CA — <a href="https://www.google.com/search?q=%22General%20%26%20Preventive%20Dentistry%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Cosmetic Dentist Sacramento, CA — <a href="https://www.google.com/search?q=%22Cosmetic%20Dentist%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Checkup Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Checkup%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Tak Bodhiprasart - Land Park Dental Sacramento California — <a href="https://www.google.com/search?q=%22Tak%20Bodhiprasart%20-%20Land%20Park%20Dental%20Sacramento%20California%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Denture Relining Sacramento, CA — <a href="https://www.google.com/search?q=%22Denture%20Relining%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Restorations Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Restorations%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Clear Braces Sacramento, CA — <a href="https://www.google.com/search?q=%22Clear%20Braces%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Crowns and Dental Bridges Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Crowns%20and%20Dental%20Bridges%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Cosmetics Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Cosmetics%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Tamara Morgan - Land Park Dental Sacramento California — <a href="https://www.google.com/search?q=%22Tamara%20Morgan%20-%20Land%20Park%20Dental%20Sacramento%20California%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Implants Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Implants%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Denture Adjustments and Repairs Archives — <a href="https://www.google.com/search?q=%22Denture%20Adjustments%20and%20Repairs%20Archives%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Implant Surgery Sacramento, CA — <a href="https://www.google.com/search?q=%22Dental%20Implant%20Surgery%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>What Do I Do If I Damage My Dentures Sacramento, CA — <a href="https://www.google.com/search?q=%22What%20Do%20I%20Do%20If%20I%20Damage%20My%20Dentures%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Root Canal Treatment Sacramento, CA — <a href="https://www.google.com/search?q=%22Root%20Canal%20Treatment%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Cosmetic Dental Care Sacramento, CA — <a href="https://www.google.com/search?q=%22Cosmetic%20Dental%20Care%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dr. Stephanie Cheng - Sacramento — <a href="https://www.google.com/search?q=%22Dr.%20Stephanie%20Cheng%20-%20Sacramento%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+        <li>Full Mouth Reconstruction Sacramento, CA — <a href="https://www.google.com/search?q=%22Full%20Mouth%20Reconstruction%20Sacramento%2C%20CA%22%20site%3Alandparkdental.com" target="_blank" rel="noopener">search for it</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot">
+    1 page(s) flagged as needing a fix out of 32 indexed URLs checked.
+    "Should redirect" = a 404/410 that likely has a live equivalent worth redirecting to.
+    "Wrong target" = an existing redirect that lands somewhere unrelated.
+  </div>
+</div>
+</body>
+</html>
