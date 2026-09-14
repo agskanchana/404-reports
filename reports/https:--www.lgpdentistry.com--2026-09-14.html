@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404/410 Audit — https://www.lgpdentistry.com/</title>
+<style>
+:root{
+  --ground:#eef1f5; --panel:#ffffff; --surface:#f5f7fa; --line:#e2e7ee;
+  --ink:#171a1f; --ink-2:#59636f; --ink-3:#8892a0;
+  --accent:#b3261e; --accent-soft:#fce9e7;
+  --ok:#12693a; --ok-bg:#e4f4ea; --err:#b3261e; --err-bg:#fce9e7;
+  --warn:#8a5300; --warn-bg:#fdf0dc; --none:#5b6672; --none-bg:#eceff3;
+  --ui:ui-sans-serif,"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#0f1216; --panel:#171b21; --surface:#1d222a; --line:#2b323c;
+    --ink:#e7ebf0; --ink-2:#a2adba; --ink-3:#77828f;
+    --accent:#f2938c; --accent-soft:#33191a;
+    --ok:#6cc98a; --ok-bg:#122a1c; --err:#f2938c; --err-bg:#33191a;
+    --warn:#e8b25f; --warn-bg:#2f2413; --none:#9aa4b0; --none-bg:#222831;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0f1216; --panel:#171b21; --surface:#1d222a; --line:#2b323c;
+  --ink:#e7ebf0; --ink-2:#a2adba; --ink-3:#77828f;
+  --accent:#f2938c; --accent-soft:#33191a;
+  --ok:#6cc98a; --ok-bg:#122a1c; --err:#f2938c; --err-bg:#33191a;
+  --warn:#e8b25f; --warn-bg:#2f2413; --none:#9aa4b0; --none-bg:#222831;
+}
+:root[data-theme="light"]{
+  --ground:#eef1f5; --panel:#ffffff; --surface:#f5f7fa; --line:#e2e7ee;
+  --ink:#171a1f; --ink-2:#59636f; --ink-3:#8892a0;
+  --accent:#b3261e; --accent-soft:#fce9e7;
+  --ok:#12693a; --ok-bg:#e4f4ea; --err:#b3261e; --err-bg:#fce9e7;
+  --warn:#8a5300; --warn-bg:#fdf0dc; --none:#5b6672; --none-bg:#eceff3;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--ui);background:var(--ground);color:var(--ink);
+     padding:24px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:#1558d6}
+:root[data-theme="dark"] a, @media (prefers-color-scheme:dark){a{color:#84b4fa}}
+.wrap{max-width:1220px;margin:0 auto;background:var(--panel);border:1px solid var(--line);
+      border-radius:14px;padding:clamp(20px,4vw,36px);display:flex;flex-direction:column;gap:26px}
+.head{display:flex;flex-direction:column;gap:4px}
+h1{font-size:clamp(21px,3vw,27px);letter-spacing:-.02em;text-wrap:balance}
+.sub{color:var(--ink-2);font-size:14px}
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+      padding:14px 16px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.meta span{color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:600}
+.meta code{font-family:var(--mono);font-size:12.5px;word-break:break-all}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--bar,var(--none));
+      border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.card h3{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.card .n{font-size:27px;font-weight:650;color:var(--bar,var(--ink));font-variant-numeric:tabular-nums}
+.c-total{--bar:var(--ink-2)}.c-ok{--bar:var(--ok)}.c-problem{--bar:var(--err)}
+.c-redirect{--bar:var(--warn)}.c-none{--bar:var(--none)}.c-unresolved{--bar:var(--ink-3)}
+
+h2{font-size:16px;letter-spacing:-.01em}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
+thead th{background:var(--surface);color:var(--ink-2);padding:10px 12px;text-align:left;
+         font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+         border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface)}
+td.n{color:var(--ink-3);font-variant-numeric:tabular-nums}
+td.u{max-width:340px}
+td.u a{font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere;text-decoration:none}
+td.u a:hover{text-decoration:underline}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;
+      font-weight:600;white-space:nowrap}
+.p-ok{background:var(--ok-bg);color:var(--ok)}
+.p-not_found,.p-gone,.p-error,.p-unreachable{background:var(--err-bg);color:var(--err)}
+.p-redirect{background:var(--warn-bg);color:var(--warn)}
+.v-should_redirect,.v-wrong_redirect{background:var(--err-bg);color:var(--err)}
+.v-should_be_410{background:var(--warn-bg);color:var(--warn)}
+.v-ok_as_is{background:var(--ok-bg);color:var(--ok)}
+.v-uncertain{background:var(--none-bg);color:var(--none)}
+td.arrow{color:var(--ink-2);font-family:var(--mono);font-size:12.5px}
+.soft{color:var(--warn);font-family:var(--ui);font-size:11.5px}
+.reason.conflict{color:var(--err)}
+.durl.conflict{--bar:var(--err)}
+td.arrow a{font-family:var(--mono);text-decoration:none}
+.types{color:var(--ink-2)}
+
+.detail{display:flex;flex-direction:column;gap:12px}
+.durl{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--bar,var(--none));
+      border-radius:10px;padding:14px 16px}
+.durl.problem{--bar:var(--err)}
+.durl h3{font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.durl h3 a{font-family:var(--mono);text-decoration:none}
+.durl h3 a:hover{text-decoration:underline}
+.durl .t{font-size:12px;color:var(--ink-2);margin:3px 0 8px}
+.durl .chain{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-bottom:6px}
+.durl .reason{font-size:13px;padding:8px 0 0;border-top:1px solid var(--line);margin-top:4px}
+.durl .reason b{font-weight:600}
+.durl .suggest{font-family:var(--mono);font-size:12.5px;margin-top:4px}
+
+.unresolved{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+            font-size:13px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+.unresolved li{margin-left:18px}
+
+.foot{padding-top:16px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12px}
+@media (max-width:620px){body{padding:12px}.wrap{border-radius:10px}}
+@media print{body{background:#fff;padding:0}.wrap{border:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>404 / 410 / Redirect Audit</h1>
+    <p class="sub">Every URL Google has indexed for https://www.lgpdentistry.com/, checked against its live sitemap</p>
+  </div>
+
+  <div class="meta">
+    <span><b>Site</b> &nbsp;<code>https://www.lgpdentistry.com/</code></span>
+    <span><b>Sitemap</b> &nbsp;<code>https://www.lgpdentistry.com/sitemap_index.xml</code></span>
+    <span><b>Generated</b> &nbsp;2026-09-14 16:55:21</span>
+    <span><b>Indexed URLs checked</b> &nbsp;57</span>
+  </div>
+
+  <div class="cards">
+    <div class="card c-total"><h3>Checked</h3><div class="n">57</div></div>
+    <div class="card c-ok"><h3>Live &amp; OK</h3><div class="n">2</div></div>
+    <div class="card c-problem"><h3>Needs fixing</h3><div class="n">10</div></div>
+    <div class="card c-problem"><h3>Add redirect</h3><div class="n">5</div></div>
+    <div class="card c-redirect"><h3>Should be 410</h3><div class="n">5</div></div>
+    <div class="card c-redirect"><h3>Soft 404</h3><div class="n">5</div></div>
+    <div class="card c-problem"><h3>Rule mismatch</h3><div class="n">5</div></div>
+  </div>
+
+  <div>
+    <h2>All indexed URLs</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>#</th><th>Indexed URL</th><th>Status</th><th>Redirects to</th>
+          <th>AI verdict</th><th>Suggested fix</th></tr></thead>
+        <tbody>
+      <tr>
+        <td class="n">1</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/" target="_blank" rel="noopener">https://www.lgpdentistry.com/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">2</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/about/reviews/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/reviews/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/testimonials/" target="_blank" rel="noopener">https://www.lgpdentistry.com/testimonials/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">3</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/patients/insurance/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/insurance/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-insurance/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-insurance/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">4</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/cosmetic/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/cosmetic/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/cosmetic-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/cosmetic-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">5</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/restoration/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/restoration/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/restorative-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">6</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/prevention/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/prevention/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/preventive-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">7</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/prevention/sealants" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/prevention/sealants</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-sealants/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-sealants/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">8</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/technology/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/technology/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/our-technology/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">9</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/patients/financing/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/financing/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/financing/" target="_blank" rel="noopener">https://www.lgpdentistry.com/financing/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">10</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/restorative-dentistry/onlays/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/onlays/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/inlays-and-onlays/" target="_blank" rel="noopener">https://www.lgpdentistry.com/inlays-and-onlays/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">11</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/fluoride-treatment/bonding/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/bonding/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-bonding/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-bonding/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">12</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/patients/patient-forms/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/patient-forms/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/patient-forms/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patient-forms/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">13</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/about/smile-gallery/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/smile-gallery/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/smile-gallery/" target="_blank" rel="noopener">https://www.lgpdentistry.com/smile-gallery/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">14</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/fluoride-treatment/periodontal/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/periodontal/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/periodontics/" target="_blank" rel="noopener">https://www.lgpdentistry.com/periodontics/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">15</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/about/office-tour/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/office-tour/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/office-tour/" target="_blank" rel="noopener">https://www.lgpdentistry.com/office-tour/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">16</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/fluoride-treatment/extractions/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/extractions/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-extractions/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-extractions/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">17</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/fluoride-treatment/emergencies/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/emergencies/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/emergency-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/emergency-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">18</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/restorative-dentistry/full-dentures/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/full-dentures/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dentures-and-partials/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dentures-and-partials/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">19</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/fluoride-treatment/childrens-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/childrens-dentistry/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/children-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/children-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">20</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/bright-smiles-savings-plan/" target="_blank" rel="noopener">https://www.lgpdentistry.com/bright-smiles-savings-plan/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/financing/" target="_blank" rel="noopener">https://www.lgpdentistry.com/financing/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">21</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/about/meet-the-doctors/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/meet-the-doctors/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/meet-the-doctors/" target="_blank" rel="noopener">https://www.lgpdentistry.com/meet-the-doctors/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">22</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/patients/your-first-visit/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/your-first-visit/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/your-first-visit/" target="_blank" rel="noopener">https://www.lgpdentistry.com/your-first-visit/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">23</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/technology/digital-x-rays/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/technology/digital-x-rays/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/digital-x-rays/" target="_blank" rel="noopener">https://www.lgpdentistry.com/digital-x-rays/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">24</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/dipl-testimonial/patient-review-2/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dipl-testimonial/patient-review-2/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/testimonials/" target="_blank" rel="noopener">https://www.lgpdentistry.com/testimonials/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">25</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/dipl-team-member/dr-peterson/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dipl-team-member/dr-peterson/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/meet-the-doctors/" target="_blank" rel="noopener">https://www.lgpdentistry.com/meet-the-doctors/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">26</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/meet-the-doctors/?utm_source=nationalclinics/" target="_blank" rel="noopener">https://www.lgpdentistry.com/meet-the-doctors/?utm_source=nationalclinics/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">27</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/restorative-dentistry/implant-supported-dentures/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/implant-supported-dentures/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/restorative-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-implants-restorations/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-implants-restorations/</a></td>
+      </tr>
+      <tr>
+        <td class="n">28</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/preventive-dentistry/cleanings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/cleanings/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/preventive-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-checkups-and-cleanings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-checkups-and-cleanings/</a></td>
+      </tr>
+      <tr>
+        <td class="n">29</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/restorative-dentistry/full-mouth-reconstruction/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/full-mouth-reconstruction/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/restorative-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">30</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/preventive-dentistry/back-to-school-exam/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/back-to-school-exam/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/preventive-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/children-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/children-dentistry/</a></td>
+      </tr>
+      <tr>
+        <td class="n">31</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/restorative-dentistry/implants/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/implants/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-implants-restorations/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-implants-restorations/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">32</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/fluoride-treatment/fillings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/fillings/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/fluoride-treatment/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/tooth-colored-fillings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/tooth-colored-fillings/</a></td>
+      </tr>
+      <tr>
+        <td class="n">33</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/cosmetic-dentistry/veneers/" target="_blank" rel="noopener">https://www.lgpdentistry.com/cosmetic-dentistry/veneers/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-veneers/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-veneers/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">34</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/restorative-dentistry/crowns/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/crowns/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-crowns/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-crowns/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">35</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/our-technology/sterilization/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/sterilization/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/our-technology/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">36</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/preventive-dentistry/mouthguards/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/mouthguards/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/preventive-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">37</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/*/" target="_blank" rel="noopener">https://www.lgpdentistry.com/*/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com" target="_blank" rel="noopener">https://www.lgpdentistry.com</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">38</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/our-technology/patient-safety/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/patient-safety/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/our-technology/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">39</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/our-technology/electric-toothbrush/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/electric-toothbrush/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/our-technology/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">40</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/patients/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/your-first-visit/" target="_blank" rel="noopener">https://www.lgpdentistry.com/your-first-visit/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">41</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/about/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/meet-the-doctors/" target="_blank" rel="noopener">https://www.lgpdentistry.com/meet-the-doctors/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">42</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/locations/" target="_blank" rel="noopener">https://www.lgpdentistry.com/locations/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/contact-us/" target="_blank" rel="noopener">https://www.lgpdentistry.com/contact-us/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">43</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/prevention/check-ups/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/prevention/check-ups/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-checkups-and-cleanings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-checkups-and-cleanings/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">44</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/dipl-testimonial/very-compassionate/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dipl-testimonial/very-compassionate/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/testimonials/" target="_blank" rel="noopener">https://www.lgpdentistry.com/testimonials/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">45</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/videos/" target="_blank" rel="noopener">https://www.lgpdentistry.com/videos/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/smile-gallery/" target="_blank" rel="noopener">https://www.lgpdentistry.com/smile-gallery/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">46</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/about/faqs/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/faqs/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/your-first-visit/" target="_blank" rel="noopener">https://www.lgpdentistry.com/your-first-visit/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">47</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/preventive-dentistry/sealants/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/sealants/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-sealants/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-sealants/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">48</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/preventive-dentistry/general-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/general-dentistry/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/family-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/family-dentistry/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">49</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/preventive-dentistry/check-ups/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/check-ups/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/dental-checkups-and-cleanings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-checkups-and-cleanings/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">50</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/treatments/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/treatments/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com" target="_blank" rel="noopener">https://www.lgpdentistry.com</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">51</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com" target="_blank" rel="noopener">https://www.lgpdentistry.com</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">52</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/services/technology/six-month-smiles/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/technology/six-month-smiles/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/410-page/" target="_blank" rel="noopener">https://www.lgpdentistry.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/invisalign/" target="_blank" rel="noopener">https://www.lgpdentistry.com/invisalign/</a></td>
+      </tr>
+      <tr>
+        <td class="n">53</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/cdn-cgi/l/email-protection" target="_blank" rel="noopener">https://www.lgpdentistry.com/cdn-cgi/l/email-protection</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/410-page/" target="_blank" rel="noopener">https://www.lgpdentistry.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">54</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/wp-content/uploads/*" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/uploads/*</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/410-page/" target="_blank" rel="noopener">https://www.lgpdentistry.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">55</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/wp-content/themes/ekwa/" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/themes/ekwa/</a></td>
+        <td><span class="pill p-error">Error</span></td>
+        <td class="arrow">—</td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">56</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/wp-content/plugins/gravityforms/images" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/plugins/gravityforms/images</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/410-page/" target="_blank" rel="noopener">https://www.lgpdentistry.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">57</td>
+        <td class="u"><a href="https://www.lgpdentistry.com/wp-content/plugins/gravityforms" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/plugins/gravityforms</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.lgpdentistry.com/410-page/" target="_blank" rel="noopener">https://www.lgpdentistry.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="detail"><h2>Pages needing a look</h2>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/about/reviews/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/reviews/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/about/reviews/ [301] → https://www.lgpdentistry.com/testimonials/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL, which was for reviews, correctly redirects to the current testimonials page. This is the most relevant page and serves the original user intent perfectly.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/patients/insurance/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/insurance/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/patients/insurance/ [301] → https://www.lgpdentistry.com/dental-insurance/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about insurance for patients correctly redirects to the current page dedicated to dental insurance. The redirect target is the most relevant page on the site.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/cosmetic/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/cosmetic/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/cosmetic/ [301] → https://www.lgpdentistry.com/cosmetic-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL, which was about cosmetic services, correctly redirects to the main &#x27;Cosmetic Dentistry&#x27; page. This is the most relevant and appropriate destination.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/restoration/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/restoration/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/restoration/ [301] → https://www.lgpdentistry.com/restorative-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL, which is about restoration services, correctly redirects to the main page for restorative dentistry. This is the most relevant and appropriate destination page.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/prevention/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/prevention/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/prevention/ [301] → https://www.lgpdentistry.com/preventive-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL about preventive services correctly redirects to the live page for &quot;Preventive Dentistry&quot;. The destination is the most relevant page for the original topic.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/prevention/sealants" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/prevention/sealants</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/prevention/sealants [301] → https://www.lgpdentistry.com/dental-sealants/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about dental sealants under a nested &#x27;prevention&#x27; category, correctly redirects to the current dedicated page for dental sealants. The redirect target is the most relevant page possible.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/technology/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/technology/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/technology/ [301] → https://www.lgpdentistry.com/our-technology/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about technology correctly redirects to the current page about dental technology. The destination page is a perfect topical match for the original URL&#x27;s intent.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/patients/financing/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/financing/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/patients/financing/ [301] → https://www.lgpdentistry.com/financing/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL about patient financing correctly redirects to the current page dedicated to financing and payment options. The destination is the most relevant page on the site for this topic.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/restorative-dentistry/onlays/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/onlays/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/restorative-dentistry/onlays/ [301] → https://www.lgpdentistry.com/inlays-and-onlays/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about onlays correctly redirects to the page specifically about inlays and onlays. This is the most relevant page and a perfect match for the user&#x27;s intent.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/fluoride-treatment/bonding/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/bonding/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/fluoride-treatment/bonding/ [301] → https://www.lgpdentistry.com/dental-bonding/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, despite its confusing structure under &#x27;/fluoride-treatment/&#x27;, was about dental bonding. It correctly redirects to the site&#x27;s dedicated page for dental bonding, which is the most relevant target.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/patients/patient-forms/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/patient-forms/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/patients/patient-forms/ [301] → https://www.lgpdentistry.com/patient-forms/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about patient forms, correctly redirects to the current live page for patient forms. The destination is a perfect topical match.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/about/smile-gallery/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/smile-gallery/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/about/smile-gallery/ [301] → https://www.lgpdentistry.com/smile-gallery/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL, which was for a smile gallery under the &#x27;about&#x27; section, correctly redirects to the current top-level smile gallery page. The destination is the most relevant page for the original user intent.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/fluoride-treatment/periodontal/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/periodontal/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/fluoride-treatment/periodontal/ [301] → https://www.lgpdentistry.com/periodontics/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, despite its confusing structure, contains the keyword &#x27;periodontal&#x27;. It correctly redirects to the main &#x27;Periodontics&#x27; page, which is the most relevant page for a user interested in gum disease treatment.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/about/office-tour/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/office-tour/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/about/office-tour/ [301] → https://www.lgpdentistry.com/office-tour/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about an office tour, correctly redirects to the current live page for the office tour. The topic is an exact match, reflecting a likely site structure update.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/fluoride-treatment/extractions/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/extractions/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/fluoride-treatment/extractions/ [301] → https://www.lgpdentistry.com/dental-extractions/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, despite its unusual structure combining &#x27;fluoride-treatment&#x27; and &#x27;extractions&#x27;, correctly redirects to the dedicated page for dental extractions. This is the most relevant and appropriate destination for the user&#x27;s likely intent.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/fluoride-treatment/emergencies/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/emergencies/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/fluoride-treatment/emergencies/ [301] → https://www.lgpdentistry.com/emergency-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, despite its unusual structure, contains the keyword &#x27;emergencies&#x27;. It correctly redirects to the dedicated &#x27;Emergency Dentistry&#x27; page, which is the most relevant page for a user searching for emergency dental care.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/restorative-dentistry/full-dentures/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/full-dentures/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/restorative-dentistry/full-dentures/ [301] → https://www.lgpdentistry.com/dentures-and-partials/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about full dentures correctly redirects to the current, more comprehensive page covering both full and partial dentures. This is the most relevant destination.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/fluoride-treatment/childrens-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/childrens-dentistry/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/fluoride-treatment/childrens-dentistry/ [301] → https://www.lgpdentistry.com/children-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for a page about fluoride treatment within the context of children&#x27;s dentistry. It correctly redirects to the main page for Children&#x27;s Dentistry, which is the most relevant available page for the user&#x27;s intent.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/bright-smiles-savings-plan/" target="_blank" rel="noopener">https://www.lgpdentistry.com/bright-smiles-savings-plan/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/bright-smiles-savings-plan/ [301] → https://www.lgpdentistry.com/financing/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for a specific &#x27;Bright Smiles Savings Plan&#x27;. Since no such plan is currently advertised on the site, redirecting to the general &#x27;Financing &amp; Payment Options&#x27; page is the most relevant and logical destination for a user interested in making dental care more affordable.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/about/meet-the-doctors/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/meet-the-doctors/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/about/meet-the-doctors/ [301] → https://www.lgpdentistry.com/meet-the-doctors/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about meeting the doctors correctly redirects to the current page with the same topic. The redirect preserves user intent perfectly.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/patients/your-first-visit/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/your-first-visit/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/patients/your-first-visit/ [301] → https://www.lgpdentistry.com/your-first-visit/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was likely under a &#x27;/patients/&#x27; subdirectory, correctly redirects to the current live page about a new patient&#x27;s first visit. The destination is the most relevant page on the site for this topic.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/technology/digital-x-rays/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/technology/digital-x-rays/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/technology/digital-x-rays/ [301] → https://www.lgpdentistry.com/digital-x-rays/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about digital x-rays, correctly redirects to the current, live page specifically about digital x-rays. The redirect is highly relevant and appropriate.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/dipl-testimonial/patient-review-2/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dipl-testimonial/patient-review-2/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/dipl-testimonial/patient-review-2/ [301] → https://www.lgpdentistry.com/testimonials/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for a specific patient testimonial. It correctly redirects to the main testimonials page, which is the most relevant destination for a user interested in patient reviews.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/dipl-team-member/dr-peterson/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dipl-team-member/dr-peterson/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/dipl-team-member/dr-peterson/ [301] → https://www.lgpdentistry.com/meet-the-doctors/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for a specific team member, Dr. Peterson. It correctly redirects to the general &#x27;Meet the Doctors&#x27; page, which is the most relevant replacement for a former staff member&#x27;s bio.</div>
+    </div>
+    <div class="durl problem">
+      <h3><a href="https://www.lgpdentistry.com/restorative-dentistry/implant-supported-dentures/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/implant-supported-dentures/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/restorative-dentistry/implant-supported-dentures/ [301] → https://www.lgpdentistry.com/restorative-dentistry/ [200]</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original page was about implant-supported dentures, a specific combination of implants and dentures. While the current redirect to the general Restorative Dentistry page is acceptable, a more specific page exists. The Dental Implants page is a better target as it directly addresses the core technology of the original topic.</div>
+      <div class="suggest">→ suggested: <a href="https://www.lgpdentistry.com/dental-implants-restorations/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-implants-restorations/</a></div>
+    </div>
+    <div class="durl problem">
+      <h3><a href="https://www.lgpdentistry.com/preventive-dentistry/cleanings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/cleanings/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/preventive-dentistry/cleanings/ [301] → https://www.lgpdentistry.com/preventive-dentistry/ [200]</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original URL was specifically about dental cleanings. While the current redirect to the general &#x27;Preventive Dentistry&#x27; page is relevant, there is a more specific and better-matching live page titled &#x27;Dental Check-Ups &amp; Teeth Cleanings&#x27;.</div>
+      <div class="suggest">→ suggested: <a href="https://www.lgpdentistry.com/dental-checkups-and-cleanings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dental-checkups-and-cleanings/</a></div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/restorative-dentistry/full-mouth-reconstruction/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/full-mouth-reconstruction/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/restorative-dentistry/full-mouth-reconstruction/ [301] → https://www.lgpdentistry.com/restorative-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about &#x27;full-mouth reconstruction&#x27;, which is a comprehensive restorative procedure. Since there is no longer a specific page for this, redirecting to the general &#x27;Restorative Dentistry&#x27; category page is the most relevant and appropriate action.</div>
+    </div>
+    <div class="durl problem">
+      <h3><a href="https://www.lgpdentistry.com/preventive-dentistry/back-to-school-exam/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/back-to-school-exam/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/preventive-dentistry/back-to-school-exam/ [301] → https://www.lgpdentistry.com/preventive-dentistry/ [200]</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original URL was about back-to-school exams, which are specifically for children. While the current redirect to the general preventive dentistry page is relevant, the dedicated &quot;Children&#x27;s Dentistry&quot; page is a much better and more specific match for the user&#x27;s intent.</div>
+      <div class="suggest">→ suggested: <a href="https://www.lgpdentistry.com/children-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/children-dentistry/</a></div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/restorative-dentistry/implants/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/implants/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/restorative-dentistry/implants/ [301] → https://www.lgpdentistry.com/dental-implants-restorations/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL for dental implants correctly redirects to the current, dedicated page for dental implants. The destination is the most topically relevant page on the site.</div>
+    </div>
+    <div class="durl problem">
+      <h3><a href="https://www.lgpdentistry.com/fluoride-treatment/fillings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/fluoride-treatment/fillings/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/fluoride-treatment/fillings/ [301] → https://www.lgpdentistry.com/fluoride-treatment/ [200]</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The indexed URL was about fillings, but it redirects to the page for fluoride treatment. The site has a specific page for tooth-colored fillings which is a much better topical match for the user&#x27;s intent.</div>
+      <div class="suggest">→ suggested: <a href="https://www.lgpdentistry.com/tooth-colored-fillings/" target="_blank" rel="noopener">https://www.lgpdentistry.com/tooth-colored-fillings/</a></div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/cosmetic-dentistry/veneers/" target="_blank" rel="noopener">https://www.lgpdentistry.com/cosmetic-dentistry/veneers/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/cosmetic-dentistry/veneers/ [301] → https://www.lgpdentistry.com/dental-veneers/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL, which was about veneers, correctly redirects to the current live page specifically about dental veneers. The topic is a perfect match.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/restorative-dentistry/crowns/" target="_blank" rel="noopener">https://www.lgpdentistry.com/restorative-dentistry/crowns/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/restorative-dentistry/crowns/ [301] → https://www.lgpdentistry.com/dental-crowns/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about dental crowns under the restorative dentistry category, correctly redirects to the current, dedicated page for dental crowns. The topic is a perfect match.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/our-technology/sterilization/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/sterilization/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/our-technology/sterilization/ [301] → https://www.lgpdentistry.com/our-technology/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about sterilization, which is a specific aspect of dental technology. It correctly redirects to the general &#x27;Our Technology&#x27; page, which is the most relevant parent category available.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/preventive-dentistry/mouthguards/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/mouthguards/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/preventive-dentistry/mouthguards/ [301] → https://www.lgpdentistry.com/preventive-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about mouthguards, a specific preventive dentistry service. Since there is no longer a dedicated page for mouthguards, the current redirect to the parent category page, &#x27;Preventive Dentistry&#x27;, is the most relevant and appropriate destination.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/*/" target="_blank" rel="noopener">https://www.lgpdentistry.com/*/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/*/ [301] → https://www.lgpdentistry.com [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL is a malformed wildcard URL with no specific user intent. Redirecting such a URL to the homepage is the correct and standard practice.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/our-technology/patient-safety/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/patient-safety/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/our-technology/patient-safety/ [301] → https://www.lgpdentistry.com/our-technology/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about patient safety within the context of dental technology. It correctly redirects to the parent page about &#x27;Our Technology&#x27;, which is the most topically relevant page available.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/our-technology/electric-toothbrush/" target="_blank" rel="noopener">https://www.lgpdentistry.com/our-technology/electric-toothbrush/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/our-technology/electric-toothbrush/ [301] → https://www.lgpdentistry.com/our-technology/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about a specific piece of technology, an electric toothbrush. It currently redirects to the parent category page for all dental technology, which is a relevant and appropriate destination.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/patients/" target="_blank" rel="noopener">https://www.lgpdentistry.com/patients/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/patients/ [301] → https://www.lgpdentistry.com/your-first-visit/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL /patients/ was a general hub for patient information. The current redirect to /your-first-visit/ is a highly relevant destination, as information for new patients is a primary topic for this section.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/about/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/about/ [301] → https://www.lgpdentistry.com/meet-the-doctors/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for a general &#x27;About Us&#x27; page. Redirecting to the &#x27;Meet the Doctors&#x27; page is a highly relevant and appropriate choice, as it covers the primary topic users would expect to find there.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/locations/" target="_blank" rel="noopener">https://www.lgpdentistry.com/locations/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/locations/ [301] → https://www.lgpdentistry.com/contact-us/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL /locations/ suggests a page listing office addresses. Since the dental practice appears to have only one location, redirecting to the contact page, which provides the address and map, is the most relevant and helpful destination for the user.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/prevention/check-ups/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/prevention/check-ups/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/prevention/check-ups/ [301] → https://www.lgpdentistry.com/dental-checkups-and-cleanings/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about dental check-ups, correctly redirects to the current, consolidated page for dental check-ups and cleanings. The redirect target is the most relevant page available.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/dipl-testimonial/very-compassionate/" target="_blank" rel="noopener">https://www.lgpdentistry.com/dipl-testimonial/very-compassionate/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/dipl-testimonial/very-compassionate/ [301] → https://www.lgpdentistry.com/testimonials/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for a specific patient testimonial. It correctly redirects to the main testimonials page, which is the most relevant destination for a user interested in patient reviews.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/videos/" target="_blank" rel="noopener">https://www.lgpdentistry.com/videos/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/videos/ [301] → https://www.lgpdentistry.com/smile-gallery/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for videos, likely showcasing the dentist&#x27;s work or patient testimonials. The current redirect to the smile gallery, which shows before-and-after photos, serves a very similar user intent of seeing visual proof of the practice&#x27;s results. This is the most relevant available page.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/about/faqs/" target="_blank" rel="noopener">https://www.lgpdentistry.com/about/faqs/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/about/faqs/ [301] → https://www.lgpdentistry.com/your-first-visit/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for FAQs. While there is no dedicated FAQ page on the site, the current redirect to the &#x27;Your First Visit&#x27; page is a reasonable substitute as it proactively answers many common questions a new patient would have.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/preventive-dentistry/sealants/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/sealants/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/preventive-dentistry/sealants/ [301] → https://www.lgpdentistry.com/dental-sealants/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about dental sealants under the preventive dentistry category, correctly redirects to the current, dedicated page for dental sealants. This is the most relevant page and serves the user&#x27;s intent perfectly.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/preventive-dentistry/general-dentistry/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/general-dentistry/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/preventive-dentistry/general-dentistry/ [301] → https://www.lgpdentistry.com/family-dentistry/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL for &#x27;general dentistry&#x27; redirects to the &#x27;family dentistry&#x27; page. These two services are very closely related and often used interchangeably, making the current redirect target highly relevant and appropriate.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/preventive-dentistry/check-ups/" target="_blank" rel="noopener">https://www.lgpdentistry.com/preventive-dentistry/check-ups/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/preventive-dentistry/check-ups/ [301] → https://www.lgpdentistry.com/dental-checkups-and-cleanings/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about dental check-ups, which is a form of preventive dentistry. It correctly redirects to the current, specific page for dental check-ups and cleanings, which perfectly matches the user&#x27;s intent.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/treatments/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/treatments/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/treatments/ [301] → https://www.lgpdentistry.com [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, /services/treatments/, was a general page about the services offered. Since there is no single, dedicated &#x27;Our Services&#x27; page on the live site, redirecting to the homepage is the most appropriate and relevant catch-all destination.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.lgpdentistry.com/services/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/ [301] → https://www.lgpdentistry.com [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL /services/ was a general page listing all dental services. Since there is no longer a single, dedicated &#x27;Our Services&#x27; page, redirecting to the homepage is the most appropriate action as it serves as the main hub from which users can navigate to specific service categories.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.lgpdentistry.com/services/technology/six-month-smiles/" target="_blank" rel="noopener">https://www.lgpdentistry.com/services/technology/six-month-smiles/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/services/technology/six-month-smiles/ [302] → https://www.lgpdentistry.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 311), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original page was about &#x27;Six-Month Smiles,&#x27; a specific brand of short-term cosmetic orthodontics. The site no longer offers this service but has a page for Invisalign, which serves the same user intent of straightening teeth with a modern alternative to traditional braces.</div>
+      <div class="suggest">→ suggested: <a href="https://www.lgpdentistry.com/invisalign/" target="_blank" rel="noopener">https://www.lgpdentistry.com/invisalign/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.lgpdentistry.com/cdn-cgi/l/email-protection" target="_blank" rel="noopener">https://www.lgpdentistry.com/cdn-cgi/l/email-protection</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/cdn-cgi/l/email-protection [302] → https://www.lgpdentistry.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 312), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — This URL is a technical path for Cloudflare&#x27;s email protection script, not a user-facing content page. It has no topical equivalent on the site and should be properly de-indexed by returning a 410 status code.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.lgpdentistry.com/wp-content/uploads/*" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/uploads/*</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/wp-content/uploads/* [302] → https://www.lgpdentistry.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 313), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — This URL is for the WordPress uploads directory, which is not a user-facing page. There is no relevant page to redirect to, so it should return a proper 410 Gone status to be de-indexed, correcting the current soft 404.</div>
+    </div>
+    <div class="durl problem">
+      <h3><a href="https://www.lgpdentistry.com/wp-content/themes/ekwa/" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/themes/ekwa/</a></h3>
+      <div class="t">Error</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — This URL points to a WordPress theme directory, not a user-facing content page. It should never have been indexed, and there is no relevant page to redirect to. A 410 status is the correct signal to search engines to remove this from their index.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.lgpdentistry.com/wp-content/plugins/gravityforms/images" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/plugins/gravityforms/images</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/wp-content/plugins/gravityforms/images [302] → https://www.lgpdentistry.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 315), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The indexed URL is an internal directory for a WordPress plugin&#x27;s assets, not a page intended for visitors. As there is no user intent to satisfy and no relevant content page to redirect to, it should return a 410 status to be removed from the index.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.lgpdentistry.com/wp-content/plugins/gravityforms" target="_blank" rel="noopener">https://www.lgpdentistry.com/wp-content/plugins/gravityforms</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.lgpdentistry.com/wp-content/plugins/gravityforms [302] → https://www.lgpdentistry.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 316), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — This URL points to a WordPress plugin directory, which is not user-facing content and was likely indexed by mistake. There is no relevant page to redirect to, so it should return a 410 status to be removed from the index.</div>
+    </div>
+  </div>
+
+  <div>
+    <h2>Results without a matched URL (19)</h2>
+    <div class="unresolved">
+      These titles appeared in the search results but couldn't be tied to a
+      specific URL, so they were not checked. Usually they are duplicates of a
+      page already listed above. Look them up individually if in doubt:
+      <ul>
+        <li>La Grange Park Dentistry — <a href="https://www.google.com/search?q=%22La%20Grange%20Park%20Dentistry%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Periodontics in La Grange Park, IL - Gum Disease Treatment — <a href="https://www.google.com/search?q=%22Periodontics%20in%20La%20Grange%20Park%2C%20IL%20-%20Gum%20Disease%20Treatment%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Financing &amp; Payment Options — <a href="https://www.google.com/search?q=%22Financing%20%26%20Payment%20Options%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Patient Testimonials - Reviews — <a href="https://www.google.com/search?q=%22Patient%20Testimonials%20-%20Reviews%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Elevate Your Smile and Confidence with Invisalign Treatment — <a href="https://www.google.com/search?q=%22Elevate%20Your%20Smile%20and%20Confidence%20with%20Invisalign%20Treatment%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Videos — <a href="https://www.google.com/search?q=%22Videos%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>About | Dr. Fieldhouse &amp; Dr. Peterson — <a href="https://www.google.com/search?q=%22About%20%7C%20Dr.%20Fieldhouse%20%26%20Dr.%20Peterson%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Office Tour - Modern Dental Office — <a href="https://www.google.com/search?q=%22Office%20Tour%20-%20Modern%20Dental%20Office%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Insurance - PPO Plans Accepted — <a href="https://www.google.com/search?q=%22Dental%20Insurance%20-%20PPO%20Plans%20Accepted%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Privacy Policy — <a href="https://www.google.com/search?q=%22Privacy%20Policy%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Cosmetic Dentistry in La Grange Park, IL - Smile Makeover ... — <a href="https://www.google.com/search?q=%22Cosmetic%20Dentistry%20in%20La%20Grange%20Park%2C%20IL%20-%20Smile%20Makeover%20...%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Emergency Dentist in La Grange Park, IL — <a href="https://www.google.com/search?q=%22Emergency%20Dentist%20in%20La%20Grange%20Park%2C%20IL%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Sealants in La Grange Park, IL - Cavity Protection — <a href="https://www.google.com/search?q=%22Dental%20Sealants%20in%20La%20Grange%20Park%2C%20IL%20-%20Cavity%20Protection%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Restorative Dentistry in La Grange Park, IL — <a href="https://www.google.com/search?q=%22Restorative%20Dentistry%20in%20La%20Grange%20Park%2C%20IL%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Children&#x27;s Dentistry in La Grange Park, IL - Pediatric Dentist — <a href="https://www.google.com/search?q=%22Children%27s%20Dentistry%20in%20La%20Grange%20Park%2C%20IL%20-%20Pediatric%20Dentist%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Extractions in La Grange Park, IL - Painless Tooth ... — <a href="https://www.google.com/search?q=%22Dental%20Extractions%20in%20La%20Grange%20Park%2C%20IL%20-%20Painless%20Tooth%20...%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Family Dentist in La Grange Park, IL - Dental Care for All ... — <a href="https://www.google.com/search?q=%22Family%20Dentist%20in%20La%20Grange%20Park%2C%20IL%20-%20Dental%20Care%20for%20All%20...%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Fluoride Treatment in La Grange Park, IL - Prevent Cavities — <a href="https://www.google.com/search?q=%22Fluoride%20Treatment%20in%20La%20Grange%20Park%2C%20IL%20-%20Prevent%20Cavities%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Smile Makeover in La Grange Park, IL - Cosmetic Dentistry — <a href="https://www.google.com/search?q=%22Smile%20Makeover%20in%20La%20Grange%20Park%2C%20IL%20-%20Cosmetic%20Dentistry%22%20site%3Ahttps%3A//www.lgpdentistry.com/" target="_blank" rel="noopener">search for it</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot">
+    10 page(s) flagged as needing a fix out of 57 indexed URLs checked.
+    <b>Should redirect</b> = send it to the suggested live page.
+    <b>Wrong target</b> = it already redirects, but somewhere unrelated.
+    <b>Should be 410</b> = nothing live serves that visitor, so return 410 Gone rather
+    than leaving a bare 404. A plain 404 is never treated as a correct outcome.
+  </div>
+</div>
+</body>
+</html>
