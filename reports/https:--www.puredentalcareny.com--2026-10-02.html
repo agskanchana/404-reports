@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404/410 Audit — https://www.puredentalcareny.com/</title>
+<style>
+:root{
+  --ground:#eef1f5; --panel:#ffffff; --surface:#f5f7fa; --line:#e2e7ee;
+  --ink:#171a1f; --ink-2:#59636f; --ink-3:#8892a0;
+  --accent:#b3261e; --accent-soft:#fce9e7;
+  --ok:#12693a; --ok-bg:#e4f4ea; --err:#b3261e; --err-bg:#fce9e7;
+  --warn:#8a5300; --warn-bg:#fdf0dc; --none:#5b6672; --none-bg:#eceff3;
+  --ui:ui-sans-serif,"Segoe UI Variable Text","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"Cascadia Mono","SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#0f1216; --panel:#171b21; --surface:#1d222a; --line:#2b323c;
+    --ink:#e7ebf0; --ink-2:#a2adba; --ink-3:#77828f;
+    --accent:#f2938c; --accent-soft:#33191a;
+    --ok:#6cc98a; --ok-bg:#122a1c; --err:#f2938c; --err-bg:#33191a;
+    --warn:#e8b25f; --warn-bg:#2f2413; --none:#9aa4b0; --none-bg:#222831;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0f1216; --panel:#171b21; --surface:#1d222a; --line:#2b323c;
+  --ink:#e7ebf0; --ink-2:#a2adba; --ink-3:#77828f;
+  --accent:#f2938c; --accent-soft:#33191a;
+  --ok:#6cc98a; --ok-bg:#122a1c; --err:#f2938c; --err-bg:#33191a;
+  --warn:#e8b25f; --warn-bg:#2f2413; --none:#9aa4b0; --none-bg:#222831;
+}
+:root[data-theme="light"]{
+  --ground:#eef1f5; --panel:#ffffff; --surface:#f5f7fa; --line:#e2e7ee;
+  --ink:#171a1f; --ink-2:#59636f; --ink-3:#8892a0;
+  --accent:#b3261e; --accent-soft:#fce9e7;
+  --ok:#12693a; --ok-bg:#e4f4ea; --err:#b3261e; --err-bg:#fce9e7;
+  --warn:#8a5300; --warn-bg:#fdf0dc; --none:#5b6672; --none-bg:#eceff3;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--ui);background:var(--ground);color:var(--ink);
+     padding:24px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:#1558d6}
+:root[data-theme="dark"] a, @media (prefers-color-scheme:dark){a{color:#84b4fa}}
+.wrap{max-width:1220px;margin:0 auto;background:var(--panel);border:1px solid var(--line);
+      border-radius:14px;padding:clamp(20px,4vw,36px);display:flex;flex-direction:column;gap:26px}
+.head{display:flex;flex-direction:column;gap:4px}
+h1{font-size:clamp(21px,3vw,27px);letter-spacing:-.02em;text-wrap:balance}
+.sub{color:var(--ink-2);font-size:14px}
+.meta{background:var(--surface);border:1px solid var(--line);border-radius:10px;
+      padding:14px 16px;font-size:13.5px;display:flex;flex-direction:column;gap:4px}
+.meta span{color:var(--ink-2)}
+.meta b{color:var(--ink);font-weight:600}
+.meta code{font-family:var(--mono);font-size:12.5px;word-break:break-all}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--bar,var(--none));
+      border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.card h3{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.card .n{font-size:27px;font-weight:650;color:var(--bar,var(--ink));font-variant-numeric:tabular-nums}
+.c-total{--bar:var(--ink-2)}.c-ok{--bar:var(--ok)}.c-problem{--bar:var(--err)}
+.c-redirect{--bar:var(--warn)}.c-none{--bar:var(--none)}.c-unresolved{--bar:var(--ink-3)}
+
+h2{font-size:16px;letter-spacing:-.01em}
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
+thead th{background:var(--surface);color:var(--ink-2);padding:10px 12px;text-align:left;
+         font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;
+         border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface)}
+td.n{color:var(--ink-3);font-variant-numeric:tabular-nums}
+td.u{max-width:340px}
+td.u a{font-family:var(--mono);font-size:12.5px;overflow-wrap:anywhere;text-decoration:none}
+td.u a:hover{text-decoration:underline}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;
+      font-weight:600;white-space:nowrap}
+.p-ok{background:var(--ok-bg);color:var(--ok)}
+.p-not_found,.p-gone,.p-error,.p-unreachable{background:var(--err-bg);color:var(--err)}
+.p-redirect{background:var(--warn-bg);color:var(--warn)}
+.v-should_redirect,.v-wrong_redirect{background:var(--err-bg);color:var(--err)}
+.v-should_be_410{background:var(--warn-bg);color:var(--warn)}
+.v-ok_as_is{background:var(--ok-bg);color:var(--ok)}
+.v-uncertain{background:var(--none-bg);color:var(--none)}
+td.arrow{color:var(--ink-2);font-family:var(--mono);font-size:12.5px}
+.soft{color:var(--warn);font-family:var(--ui);font-size:11.5px}
+.reason.conflict{color:var(--err)}
+.durl.conflict{--bar:var(--err)}
+td.arrow a{font-family:var(--mono);text-decoration:none}
+.types{color:var(--ink-2)}
+
+.detail{display:flex;flex-direction:column;gap:12px}
+.durl{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--bar,var(--none));
+      border-radius:10px;padding:14px 16px}
+.durl.problem{--bar:var(--err)}
+.durl h3{font-size:13px;font-weight:600;overflow-wrap:anywhere}
+.durl h3 a{font-family:var(--mono);text-decoration:none}
+.durl h3 a:hover{text-decoration:underline}
+.durl .t{font-size:12px;color:var(--ink-2);margin:3px 0 8px}
+.durl .chain{font-family:var(--mono);font-size:12px;color:var(--ink-2);margin-bottom:6px}
+.durl .reason{font-size:13px;padding:8px 0 0;border-top:1px solid var(--line);margin-top:4px}
+.durl .reason b{font-weight:600}
+.durl .suggest{font-family:var(--mono);font-size:12.5px;margin-top:4px}
+
+.unresolved{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+            font-size:13px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+.unresolved li{margin-left:18px}
+
+.foot{padding-top:16px;border-top:1px solid var(--line);color:var(--ink-3);font-size:12px}
+@media (max-width:620px){body{padding:12px}.wrap{border-radius:10px}}
+@media print{body{background:#fff;padding:0}.wrap{border:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>404 / 410 / Redirect Audit</h1>
+    <p class="sub">Every URL Google has indexed for https://www.puredentalcareny.com/, checked against its live sitemap</p>
+  </div>
+
+  <div class="meta">
+    <span><b>Site</b> &nbsp;<code>https://www.puredentalcareny.com/</code></span>
+    <span><b>Sitemap</b> &nbsp;<code>https://www.puredentalcareny.com/sitemap_index.xml</code></span>
+    <span><b>Generated</b> &nbsp;2026-10-02 17:34:20</span>
+    <span><b>Indexed URLs checked</b> &nbsp;63</span>
+  </div>
+
+  <div class="cards">
+    <div class="card c-total"><h3>Checked</h3><div class="n">63</div></div>
+    <div class="card c-ok"><h3>Live &amp; OK</h3><div class="n">1</div></div>
+    <div class="card c-problem"><h3>Needs fixing</h3><div class="n">45</div></div>
+    <div class="card c-problem"><h3>Add redirect</h3><div class="n">22</div></div>
+    <div class="card c-redirect"><h3>Should be 410</h3><div class="n">23</div></div>
+    <div class="card c-redirect"><h3>Soft 404</h3><div class="n">42</div></div>
+    <div class="card c-problem"><h3>Rule mismatch</h3><div class="n">54</div></div>
+  </div>
+
+  <div>
+    <h2>All indexed URLs</h2>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>#</th><th>Indexed URL</th><th>Status</th><th>Redirects to</th>
+          <th>AI verdict</th><th>Suggested fix</th></tr></thead>
+        <tbody>
+      <tr>
+        <td class="n">1</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/" target="_blank" rel="noopener">https://www.puredentalcareny.com/</a></td>
+        <td><span class="pill p-ok">Live</span></td>
+        <td class="arrow">—</td>
+        <td><span class="n">—</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">2</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/links" target="_blank" rel="noopener">https://www.puredentalcareny.com/links</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">3</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/dentures" target="_blank" rel="noopener">https://www.puredentalcareny.com/dentures</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/dentures/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/dentures/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">4</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/whitening" target="_blank" rel="noopener">https://www.puredentalcareny.com/whitening</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/cosmetic-care/teeth-whitening/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/teeth-whitening/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">5</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/frenectomy" target="_blank" rel="noopener">https://www.puredentalcareny.com/frenectomy</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">6</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/appointment" target="_blank" rel="noopener">https://www.puredentalcareny.com/appointment</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/request-an-appointment/" target="_blank" rel="noopener">https://www.puredentalcareny.com/request-an-appointment/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">7</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/implants" target="_blank" rel="noopener">https://www.puredentalcareny.com/implants</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">8</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/doctor" target="_blank" rel="noopener">https://www.puredentalcareny.com/doctor</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/meet-the-doctor/" target="_blank" rel="noopener">https://www.puredentalcareny.com/meet-the-doctor/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">9</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/cosmetic-services" target="_blank" rel="noopener">https://www.puredentalcareny.com/cosmetic-services</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/cosmetic-care/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">10</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/lumineers" target="_blank" rel="noopener">https://www.puredentalcareny.com/lumineers</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/lumeneers/" target="_blank" rel="noopener">https://www.puredentalcareny.com/lumeneers/</a> <span class="n">[404]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/cosmetic-care/lumineers/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/lumineers/</a></td>
+      </tr>
+      <tr>
+        <td class="n">11</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/first-visit" target="_blank" rel="noopener">https://www.puredentalcareny.com/first-visit</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/your-visit/" target="_blank" rel="noopener">https://www.puredentalcareny.com/your-visit/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">12</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/mouth-guards" target="_blank" rel="noopener">https://www.puredentalcareny.com/mouth-guards</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/preventative-care/mouthguards/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/preventative-care/mouthguards/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">13</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/night-guards" target="_blank" rel="noopener">https://www.puredentalcareny.com/night-guards</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">14</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/occlusal-adjustment" target="_blank" rel="noopener">https://www.puredentalcareny.com/occlusal-adjustment</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/specialized-care/bite-adjustment/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/specialized-care/bite-adjustment/</a></td>
+      </tr>
+      <tr>
+        <td class="n">15</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/post-op-instructions" target="_blank" rel="noopener">https://www.puredentalcareny.com/post-op-instructions</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">16</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/periodontal-gum-disease" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontal-gum-disease</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">17</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/multiple-tooth-extractions" target="_blank" rel="noopener">https://www.puredentalcareny.com/multiple-tooth-extractions</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/emergency-care/emergency-root-canal-extraction/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/emergency-care/emergency-root-canal-extraction/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">18</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/contactus" target="_blank" rel="noopener">https://www.puredentalcareny.com/contactus</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">19</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/sitemap" target="_blank" rel="noopener">https://www.puredentalcareny.com/sitemap</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/site-map/" target="_blank" rel="noopener">https://www.puredentalcareny.com/site-map/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">20</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/intraoral-camera" target="_blank" rel="noopener">https://www.puredentalcareny.com/intraoral-camera</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/dental-examinations-x-rays-photos-oral-cancer-screening/" target="_blank" rel="noopener">https://www.puredentalcareny.com/dental-examinations-x-rays-photos-oral-cancer-screening/</a> <span class="n">[404]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">21</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/periodontic/frenectomy" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic/frenectomy</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">22</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/periodontic/cosmetic-periodontal-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic/cosmetic-periodontal-surgery</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/cosmetic-care/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">23</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/scaling-a-root-planing" target="_blank" rel="noopener">https://www.puredentalcareny.com/scaling-a-root-planing</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/root-canal/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/root-canal/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">24</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/testimonials" target="_blank" rel="noopener">https://www.puredentalcareny.com/testimonials</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/reviews/" target="_blank" rel="noopener">https://www.puredentalcareny.com/reviews/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">25</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/sealants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/sealants/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/preventative-care/dental-sealants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/preventative-care/dental-sealants/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">26</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/over-dentures/" target="_blank" rel="noopener">https://www.puredentalcareny.com/over-dentures/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/dentures/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/dentures/</a> <span class="n">[200]</span></td>
+        <td><span class="pill v-ok_as_is">Correct</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">27</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/q-a" target="_blank" rel="noopener">https://www.puredentalcareny.com/q-a</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">28</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/i-cat" target="_blank" rel="noopener">https://www.puredentalcareny.com/i-cat</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">29</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/periodontic" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">30</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/about" target="_blank" rel="noopener">https://www.puredentalcareny.com/about</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">31</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/arestin" target="_blank" rel="noopener">https://www.puredentalcareny.com/arestin</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">32</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/pediatric" target="_blank" rel="noopener">https://www.puredentalcareny.com/pediatric</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">33</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/waterlase" target="_blank" rel="noopener">https://www.puredentalcareny.com/waterlase</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">34</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/endodontics" target="_blank" rel="noopener">https://www.puredentalcareny.com/endodontics</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">35</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/oral-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/oral-surgery</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/" target="_blank" rel="noopener">https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/</a></td>
+      </tr>
+      <tr>
+        <td class="n">36</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/dental-hygiene" target="_blank" rel="noopener">https://www.puredentalcareny.com/dental-hygiene</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">37</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/nitrous-oxide" target="_blank" rel="noopener">https://www.puredentalcareny.com/nitrous-oxide</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">38</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/canine-exposure" target="_blank" rel="noopener">https://www.puredentalcareny.com/canine-exposure</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">39</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/our-services" target="_blank" rel="noopener">https://www.puredentalcareny.com/our-services</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">40</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/before-anesthesia" target="_blank" rel="noopener">https://www.puredentalcareny.com/before-anesthesia</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">41</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/periodontal-splinting" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontal-splinting</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">42</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/patient-resources" target="_blank" rel="noopener">https://www.puredentalcareny.com/patient-resources</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">43</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/osseous-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/osseous-surgery</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">44</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/new-patient-forms" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-forms</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">45</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/after-impacted-tooth" target="_blank" rel="noopener">https://www.puredentalcareny.com/after-impacted-tooth</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">46</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/dental-implant-faq" target="_blank" rel="noopener">https://www.puredentalcareny.com/dental-implant-faq</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/</a></td>
+      </tr>
+      <tr>
+        <td class="n">47</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/cosmetic-periodontal-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/cosmetic-periodontal-surgery</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/cosmetic-care/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/</a></td>
+      </tr>
+      <tr>
+        <td class="n">48</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/after-dental-implant-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/after-dental-implant-surgery</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/</a></td>
+      </tr>
+      <tr>
+        <td class="n">49</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/scaling-and-root-planing" target="_blank" rel="noopener">https://www.puredentalcareny.com/scaling-and-root-planing</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">50</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/bonding-and-white-fillings" target="_blank" rel="noopener">https://www.puredentalcareny.com/bonding-and-white-fillings</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/cosmetic-care/bonding/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/bonding/</a></td>
+      </tr>
+      <tr>
+        <td class="n">51</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/after-wisdom-tooth-removal" target="_blank" rel="noopener">https://www.puredentalcareny.com/after-wisdom-tooth-removal</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">52</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/orthognathic-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/orthognathic-surgery</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">53</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/simplant" target="_blank" rel="noopener">https://www.puredentalcareny.com/simplant</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/" target="_blank" rel="noopener">https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/</a></td>
+      </tr>
+      <tr>
+        <td class="n">54</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/template-parts/default-blocks/" target="_blank" rel="noopener">https://www.puredentalcareny.com/template-parts/default-blocks/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">55</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/periodontic/periodontal-gum-disease" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic/periodontal-gum-disease</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/</a></td>
+      </tr>
+      <tr>
+        <td class="n">56</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/articles/default" target="_blank" rel="noopener">https://www.puredentalcareny.com/articles/default</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/blog/" target="_blank" rel="noopener">https://www.puredentalcareny.com/blog/</a></td>
+      </tr>
+      <tr>
+        <td class="n">57</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/surgery-instructions/" target="_blank" rel="noopener">https://www.puredentalcareny.com/surgery-instructions/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">58</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/contact-us/" target="_blank" rel="noopener">https://www.puredentalcareny.com/contact-us/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">59</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/payment-and-financial-information/" target="_blank" rel="noopener">https://www.puredentalcareny.com/payment-and-financial-information/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">60</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/occlusal-splints-nightguards/" target="_blank" rel="noopener">https://www.puredentalcareny.com/occlusal-splints-nightguards/</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-wrong_redirect">Wrong target</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/treatments/preventative-care/nightguards/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/preventative-care/nightguards/</a></td>
+      </tr>
+      <tr>
+        <td class="n">61</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/vip-amenities" target="_blank" rel="noopener">https://www.puredentalcareny.com/vip-amenities</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+      <tr>
+        <td class="n">62</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/zocdoc" target="_blank" rel="noopener">https://www.puredentalcareny.com/zocdoc</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_redirect">Should redirect</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></td>
+      </tr>
+      <tr>
+        <td class="n">63</td>
+        <td class="u"><a href="https://www.puredentalcareny.com/platelet-rich-plasma-prp" target="_blank" rel="noopener">https://www.puredentalcareny.com/platelet-rich-plasma-prp</a></td>
+        <td><span class="pill p-redirect">Redirects</span></td>
+        <td class="arrow"><a href="https://www.puredentalcareny.com/410-page/" target="_blank" rel="noopener">https://www.puredentalcareny.com/410-page/</a> <span class="n">[200]</span><br><span class="soft">⚠ 302 temporary redirect — use 301 for a permanent move</span><br><span class="soft">⚠ soft 404: this destination returns <b>200</b>, not 410 — despite its name</span></td>
+        <td><span class="pill v-should_be_410">Should be 410</span></td>
+        <td class="arrow"><span class="n">—</span></td>
+      </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="detail"><h2>Pages needing a look</h2>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/links" target="_blank" rel="noopener">https://www.puredentalcareny.com/links</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/links [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to http://www.example.com/ (line 259), but it actually lands on https://www.puredentalcareny.com/410-page/.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The URL path /links suggests a utility page, not patient-facing content. The site owner&#x27;s intended redirect to example.com confirms it has no value. Since there is no relevant replacement page, it should return a 410 status to be de-indexed, instead of redirecting to a soft 404 page.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/dentures" target="_blank" rel="noopener">https://www.puredentalcareny.com/dentures</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/dentures [301] → https://www.puredentalcareny.com/over-dentures/ [301] → https://www.puredentalcareny.com/treatments/restorative-care/dentures/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/over-dentures/ (line 260), but it actually lands on https://www.puredentalcareny.com/treatments/restorative-care/dentures/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about dentures now redirects to a specific page about implant overdentures. This is a highly relevant and appropriate destination, as it details the specific denture service offered by the practice.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/whitening" target="_blank" rel="noopener">https://www.puredentalcareny.com/whitening</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/whitening [301] → https://www.puredentalcareny.com/teeth-whitening/ [301] → https://www.puredentalcareny.com/treatments/cosmetic-care/teeth-whitening/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/teeth-whitening/ (line 261), but it actually lands on https://www.puredentalcareny.com/treatments/cosmetic-care/teeth-whitening/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The URL /whitening correctly redirects to the site&#x27;s primary page about teeth whitening. This is the most relevant destination and serves the user&#x27;s intent perfectly.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/frenectomy" target="_blank" rel="noopener">https://www.puredentalcareny.com/frenectomy</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/frenectomy [301] → https://www.puredentalcareny.com/adult-frenectomy/ [301] → https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/adult-frenectomy/ (line 262), but it actually lands on https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL about frenectomy correctly redirects to a live page specifically about adult frenectomy. The destination is a perfect topical match for the original URL.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.puredentalcareny.com/appointment" target="_blank" rel="noopener">https://www.puredentalcareny.com/appointment</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/appointment [301] → https://www.puredentalcareny.com/request-an-appointment/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL /appointment correctly redirects to the live page /request-an-appointment/. The destination page is the most relevant replacement and perfectly matches the user&#x27;s intent.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/implants" target="_blank" rel="noopener">https://www.puredentalcareny.com/implants</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/implants [301] → https://www.puredentalcareny.com/dental-implants/ [301] → https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/dental-implants/ (line 264), but it actually lands on https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about dental implants, correctly redirects to a live page that is also specifically about dental implants. This is a relevant and appropriate destination for the user.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.puredentalcareny.com/doctor" target="_blank" rel="noopener">https://www.puredentalcareny.com/doctor</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/doctor [301] → https://www.puredentalcareny.com/meet-the-doctor/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL /doctor correctly redirects to the /meet-the-doctor/ page. This is a highly relevant and appropriate redirect, as it directs users looking for information about the doctor to the page specifically about the doctor.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/cosmetic-services" target="_blank" rel="noopener">https://www.puredentalcareny.com/cosmetic-services</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/cosmetic-services [301] → https://www.puredentalcareny.com/cosmetic-care/ [301] → https://www.puredentalcareny.com/treatments/cosmetic-care/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/cosmetic-care/ (line 266), but it actually lands on https://www.puredentalcareny.com/treatments/cosmetic-care/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL for cosmetic services correctly redirects to the main page for cosmetic dentistry care, which is the most relevant replacement.</div>
+    </div>
+    <div class="durl problem">
+      <h3><a href="https://www.puredentalcareny.com/lumineers" target="_blank" rel="noopener">https://www.puredentalcareny.com/lumineers</a></h3>
+      <div class="t">Redirects → 404</div>
+      <div class="chain">https://www.puredentalcareny.com/lumineers [301] → https://www.puredentalcareny.com/lumeneers/ [404]</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The indexed URL about Lumineers redirects to a misspelled URL (/lumeneers/) which results in a 404 error. There is a live, dedicated page for Lumineers that would be the correct target.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/cosmetic-care/lumineers/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/lumineers/</a></div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.puredentalcareny.com/first-visit" target="_blank" rel="noopener">https://www.puredentalcareny.com/first-visit</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/first-visit [301] → https://www.puredentalcareny.com/your-visit/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The URL /first-visit correctly redirects to /your-visit/, which is a page specifically about a patient&#x27;s first visit. The user intent is perfectly matched.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/mouth-guards" target="_blank" rel="noopener">https://www.puredentalcareny.com/mouth-guards</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/mouth-guards [301] → https://www.puredentalcareny.com/mouthguards/ [301] → https://www.puredentalcareny.com/treatments/preventative-care/mouthguards/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/mouthguards/ (line 269), but it actually lands on https://www.puredentalcareny.com/treatments/preventative-care/mouthguards/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL about mouth guards correctly redirects to a page specifically about custom sports mouthguards. The destination is a perfect topical match for the user&#x27;s intent.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/night-guards" target="_blank" rel="noopener">https://www.puredentalcareny.com/night-guards</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/night-guards [301] → https://www.puredentalcareny.com/occlusal-splints-nightguards/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/occlusal-splints-nightguards/ (line 270), but it actually lands on https://www.puredentalcareny.com/410-page/.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — This URL currently leads to a &#x27;page deleted&#x27; placeholder (a soft 404), but the site&#x27;s redirect file shows a clear intent to redirect it to a specific, relevant page about occlusal splints and nightguards. This intended redirect should be implemented correctly.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/occlusal-adjustment" target="_blank" rel="noopener">https://www.puredentalcareny.com/occlusal-adjustment</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/occlusal-adjustment [301] → https://www.puredentalcareny.com/occlusal-splints-nightguards/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/occlusal-splints-nightguards/ (line 271), but it actually lands on https://www.puredentalcareny.com/410-page/.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was about occlusal adjustment. There is a live page specifically about bite adjustment, which is the same dental procedure, making it a perfect replacement.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/specialized-care/bite-adjustment/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/specialized-care/bite-adjustment/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/post-op-instructions" target="_blank" rel="noopener">https://www.puredentalcareny.com/post-op-instructions</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/post-op-instructions [301] → https://www.puredentalcareny.com/surgery-instructions/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/surgery-instructions/ (line 272), but it actually lands on https://www.puredentalcareny.com/410-page/.</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original URL was for post-operative instructions. It currently redirects to a &#x27;page deleted&#x27; placeholder, which is incorrect. It should redirect to the topically equivalent page for surgery instructions, as was the site owner&#x27;s original intent.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/periodontal-gum-disease" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontal-gum-disease</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/periodontal-gum-disease [301] → https://www.puredentalcareny.com/gum-grafting/ [301] → https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/gum-grafting/ (line 273), but it actually lands on https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about periodontal gum disease. It redirects to a page about gum grafting, which is a specific surgical treatment for gum recession, a common consequence of periodontal disease. This is a highly relevant and appropriate redirect.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/multiple-tooth-extractions" target="_blank" rel="noopener">https://www.puredentalcareny.com/multiple-tooth-extractions</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/multiple-tooth-extractions [301] → https://www.puredentalcareny.com/emergency-root-canal-extraction/ [301] → https://www.puredentalcareny.com/treatments/emergency-care/emergency-root-canal-extraction/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/emergency-root-canal-extraction/ (line 274), but it actually lands on https://www.puredentalcareny.com/treatments/emergency-care/emergency-root-canal-extraction/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was about multiple tooth extractions. The current redirect destination is a page about emergency tooth extraction, which is a highly relevant and appropriate replacement for the user&#x27;s intent.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/contactus" target="_blank" rel="noopener">https://www.puredentalcareny.com/contactus</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/contactus [301] → https://www.puredentalcareny.com/contact-us/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/contact-us/ (line 275), but it actually lands on https://www.puredentalcareny.com/410-page/.</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The URL is for contacting the business, but it currently redirects to a &#x27;page deleted&#x27; placeholder. It should redirect to the actual contact page, as specified in the site&#x27;s own redirect file.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/sitemap" target="_blank" rel="noopener">https://www.puredentalcareny.com/sitemap</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/sitemap [301] → https://www.puredentalcareny.com/site-map [301] → https://www.puredentalcareny.com/site-map/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/site-map (line 276), but it actually lands on https://www.puredentalcareny.com/site-map/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL /sitemap correctly redirects to the live HTML sitemap page at /site-map/. This is the expected and appropriate destination for this URL.</div>
+    </div>
+    <div class="durl problem">
+      <h3><a href="https://www.puredentalcareny.com/intraoral-camera" target="_blank" rel="noopener">https://www.puredentalcareny.com/intraoral-camera</a></h3>
+      <div class="t">Redirects → 404</div>
+      <div class="chain">https://www.puredentalcareny.com/intraoral-camera [301] → https://www.puredentalcareny.com/dental-examinations-x-rays-photos-oral-cancer-screening/ [404]</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original URL was about intraoral cameras, a tool used for dental diagnostics. The current redirect target is a 404 page. The most relevant live page is about new patient dental exams, which would involve the use of such diagnostic tools.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/periodontic/frenectomy" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic/frenectomy</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/periodontic/frenectomy [301] → https://www.puredentalcareny.com/adult-frenectomy/ [301] → https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/adult-frenectomy/ (line 278), but it actually lands on https://www.puredentalcareny.com/treatments/specialized-care/adult-frenectomy/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL, which was about a frenectomy procedure, correctly redirects to the current live page for adult frenectomy services. The destination is a perfect topical match.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/periodontic/cosmetic-periodontal-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic/cosmetic-periodontal-surgery</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/periodontic/cosmetic-periodontal-surgery [301] → https://www.puredentalcareny.com/cosmetic-care/ [301] → https://www.puredentalcareny.com/treatments/cosmetic-care/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/cosmetic-care/ (line 279), but it actually lands on https://www.puredentalcareny.com/treatments/cosmetic-care/.</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL was for cosmetic periodontal surgery. Since there is no longer a specific page for this service, redirecting to the general cosmetic dentistry category page is the most relevant and appropriate action.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/scaling-a-root-planing" target="_blank" rel="noopener">https://www.puredentalcareny.com/scaling-a-root-planing</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/scaling-a-root-planing [301] → https://www.puredentalcareny.com/root-canal/ [301] → https://www.puredentalcareny.com/treatments/restorative-care/root-canal/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared a redirect to https://www.puredentalcareny.com/root-canal/ (line 280), but it actually lands on https://www.puredentalcareny.com/treatments/restorative-care/root-canal/.</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original URL was about scaling and root planing, a deep cleaning procedure for gum disease. It currently redirects to a page about root canals, which is a completely different treatment. A more relevant destination would be the page for professional teeth cleaning.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/</a></div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.puredentalcareny.com/testimonials" target="_blank" rel="noopener">https://www.puredentalcareny.com/testimonials</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/testimonials [301] → https://www.puredentalcareny.com/reviews/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about testimonials correctly redirects to the current page for reviews and patient success stories, which serves the same user intent.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.puredentalcareny.com/sealants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/sealants/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/sealants/ [301] → https://www.puredentalcareny.com/treatments/preventative-care/dental-sealants/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The indexed URL about sealants correctly redirects to a live page specifically about dental sealants. The destination is a perfect topical match for the original URL.</div>
+    </div>
+    <div class="durl">
+      <h3><a href="https://www.puredentalcareny.com/over-dentures/" target="_blank" rel="noopener">https://www.puredentalcareny.com/over-dentures/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/over-dentures/ [301] → https://www.puredentalcareny.com/treatments/restorative-care/dentures/ [200]</div>
+      <div class="reason"><b>Correct</b> (high confidence) — The original URL about over-dentures correctly redirects to a page specifically about implant overdentures, which is the most relevant live page on the site for that topic.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/q-a" target="_blank" rel="noopener">https://www.puredentalcareny.com/q-a</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/q-a [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 289), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original URL was for a Q&amp;A page. No live page serves as a suitable replacement for general questions and answers. The site owner&#x27;s intent was to have this page return a 410 status, and since there&#x27;s no relevant content to redirect to, that is the correct action to take instead of the current soft 404.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/i-cat" target="_blank" rel="noopener">https://www.puredentalcareny.com/i-cat</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/i-cat [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 290), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original page was about i-CAT, a specific brand of dental imaging technology. The current redirect to a soft 404 page is incorrect. The most relevant available page is for new patient dental exams, which is the context where this type of diagnostic technology would be used.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/periodontic" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/periodontic [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 292), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original URL was about periodontics, which relates to gum disease treatment. None of the current live pages cover this specific service, so there is no relevant page to redirect to. The current soft 404 should be converted to a proper 410 status, which also aligns with the site owner&#x27;s stated intent.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/about" target="_blank" rel="noopener">https://www.puredentalcareny.com/about</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/about [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 293), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original URL was for an &#x27;About&#x27; page, but it now incorrectly redirects to a &#x27;page deleted&#x27; placeholder that returns a 200 status code. Since there is no suitable replacement page about the practice or team among the available live pages, it should return a 410 &#x27;Gone&#x27; status to be de-indexed correctly.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/arestin" target="_blank" rel="noopener">https://www.puredentalcareny.com/arestin</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/arestin [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 294), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about Arestin, a specific antibiotic treatment for periodontal (gum) disease. None of the available live pages cover this topic, gum disease, or even a general list of services, so there is no suitable redirect target. The current redirect to a 200-status placeholder page is a soft 404 and should be a proper 410.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/pediatric" target="_blank" rel="noopener">https://www.puredentalcareny.com/pediatric</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/pediatric [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 295), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about pediatric dentistry. None of the current live pages cover this topic, so there is no relevant page to redirect to. The URL should return a proper 410 status to indicate it has been permanently removed.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/waterlase" target="_blank" rel="noopener">https://www.puredentalcareny.com/waterlase</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/waterlase [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 296), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about Waterlase, a specific laser dentistry technology. None of the current live pages cover this topic or laser dentistry in general, so there is no relevant page to redirect to. The current redirect to a soft 404 page is incorrect; the URL should return a proper 410 status to be removed from the index.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/endodontics" target="_blank" rel="noopener">https://www.puredentalcareny.com/endodontics</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/endodontics [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 297), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about endodontics (root canals), but there are no current live pages that cover this specific service. The current setup is a soft 404, which is incorrect; the URL should return a proper 410 status to signal its permanent removal to search engines.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/oral-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/oral-surgery</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/oral-surgery [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 298), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original page was about oral surgery. The page for full mouth dental implants is a specific and highly relevant service within that category, making it a good redirect target to serve user intent. The current redirect to a &quot;page deleted&quot; placeholder is a soft 404 and should be corrected.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/" target="_blank" rel="noopener">https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/dental-hygiene" target="_blank" rel="noopener">https://www.puredentalcareny.com/dental-hygiene</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/dental-hygiene [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 299), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was about dental hygiene. The site has a live page specifically about professional teeth cleaning and dental hygienists, which is a perfect topical replacement for a user&#x27;s intent.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/nitrous-oxide" target="_blank" rel="noopener">https://www.puredentalcareny.com/nitrous-oxide</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/nitrous-oxide [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 300), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about nitrous oxide, a form of sedation dentistry. None of the current live pages cover sedation, dental anxiety, or a related general service, so there is no suitable redirect target. The current redirect to a 200-status &#x27;deleted&#x27; page is a soft 404 and should be replaced with a proper 410 status.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/canine-exposure" target="_blank" rel="noopener">https://www.puredentalcareny.com/canine-exposure</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/canine-exposure [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 301), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about canine exposure, a specific oral surgery procedure. None of the available live pages are a suitable topical match, so there is no appropriate redirect target. The current redirect to a &#x27;page deleted&#x27; placeholder that returns a 200 status is incorrect and should be a proper 410.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/our-services" target="_blank" rel="noopener">https://www.puredentalcareny.com/our-services</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/our-services [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 302), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original URL was a general &#x27;our services&#x27; page. As there is no single live page that serves as a suitable general replacement, and the site owner&#x27;s intent was for this page to be removed, it should return a 410 Gone status code to be de-indexed correctly.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/before-anesthesia" target="_blank" rel="noopener">https://www.puredentalcareny.com/before-anesthesia</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/before-anesthesia [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 303), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about instructions before receiving anesthesia. There are no live pages that serve as a suitable replacement for pre-operative instructions, and the site owner&#x27;s own configuration file indicates an intent to remove this page. The current soft 404 should be converted to a proper 410.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/periodontal-splinting" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontal-splinting</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/periodontal-splinting [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 304), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about periodontal splinting. The current behavior is a redirect to a &#x27;page deleted&#x27; placeholder that returns a 200 status, which is a soft 404. Since there are no live pages that cover this specific procedure or the broader topic of gum disease treatment, the URL should return a proper 410 status to signal its permanent removal to search engines.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/patient-resources" target="_blank" rel="noopener">https://www.puredentalcareny.com/patient-resources</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/patient-resources [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 305), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was for general patient resources. The &#x27;New Patient Dental Exam&#x27; page is the most relevant live page, serving the needs of prospective or new patients looking for information before their visit.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/osseous-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/osseous-surgery</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/osseous-surgery [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 306), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about osseous surgery, a specific periodontal procedure. None of the available live pages cover this topic or a related one, so there is no suitable redirect target. The current redirect to a &#x27;page deleted&#x27; placeholder that returns a 200 status is a soft 404 and should be converted to a proper 410 status.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/new-patient-forms" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-forms</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/new-patient-forms [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 307), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was for new patient forms. The most relevant live page is the one about the new patient dental exam, as it serves the same audience and intent.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/after-impacted-tooth" target="_blank" rel="noopener">https://www.puredentalcareny.com/after-impacted-tooth</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/after-impacted-tooth [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 308), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about post-operative care for an impacted tooth extraction. None of the available live pages cover oral surgery, tooth extractions, or post-operative instructions, so there is no relevant redirect target. The current soft 404 should be converted to a proper 410 status code as the site owner originally intended.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/dental-implant-faq" target="_blank" rel="noopener">https://www.puredentalcareny.com/dental-implant-faq</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/dental-implant-faq [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 309), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was a FAQ page for dental implants. It currently redirects to a &#x27;page deleted&#x27; placeholder which returns a 200 status code. This is incorrect and should be a 301 redirect to the main service page for dental implants, which is the most relevant replacement for a user seeking information on that topic.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/cosmetic-periodontal-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/cosmetic-periodontal-surgery</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/cosmetic-periodontal-surgery [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 310), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was about cosmetic periodontal surgery. The best available replacement is the main page for cosmetic dentistry services, which is the most relevant parent category for a user interested in cosmetic procedures.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/cosmetic-care/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/after-dental-implant-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/after-dental-implant-surgery</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/after-dental-implant-surgery [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 311), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was about care after dental implant surgery, but it now leads to a &#x27;page deleted&#x27; placeholder. It should be redirected to the main service page for dental implants, which is the most relevant live page for a user with this intent.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/dental-implants/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/scaling-and-root-planing" target="_blank" rel="noopener">https://www.puredentalcareny.com/scaling-and-root-planing</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/scaling-and-root-planing [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 312), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original page was about scaling and root planing, which is a deep cleaning procedure for gum disease. The most relevant live page is for professional teeth cleaning, which serves a similar user intent.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/professional-teeth-cleaning-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/bonding-and-white-fillings" target="_blank" rel="noopener">https://www.puredentalcareny.com/bonding-and-white-fillings</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/bonding-and-white-fillings [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 313), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original page was about both dental bonding and white fillings. The site now has dedicated pages for each of these topics. Since relevant content exists, the page should be redirected, not deleted. The dental bonding page is the most appropriate target as it covers a primary topic from the original URL.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/cosmetic-care/bonding/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/cosmetic-care/bonding/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/after-wisdom-tooth-removal" target="_blank" rel="noopener">https://www.puredentalcareny.com/after-wisdom-tooth-removal</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/after-wisdom-tooth-removal [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 314), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about post-operative care for wisdom tooth removal. None of the current live pages cover tooth extractions, wisdom teeth, or general surgery instructions, so there is no relevant page to redirect to. The site owner&#x27;s intent was to 410 this page, which is the correct action.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/orthognathic-surgery" target="_blank" rel="noopener">https://www.puredentalcareny.com/orthognathic-surgery</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/orthognathic-surgery [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 315), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about orthognathic surgery, a type of corrective jaw surgery. None of the current live pages cover this specific or any related surgical topic, making a redirect inappropriate. The current soft 404 should be converted to a proper 410 Gone status, which aligns with the site owner&#x27;s original intent.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/simplant" target="_blank" rel="noopener">https://www.puredentalcareny.com/simplant</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/simplant [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 316), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original page was about Simplant, a system for planning dental implants. The page about full mouth dental implants is the most relevant live page for a user with this interest.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/" target="_blank" rel="noopener">https://www.puredentalcareny.com/full-mouth-dental-implants-nyc/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/template-parts/default-blocks/" target="_blank" rel="noopener">https://www.puredentalcareny.com/template-parts/default-blocks/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/template-parts/default-blocks/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 317), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The indexed URL is a technical path for website template parts, not a user-facing content page. Since it serves no user intent and has no relevant replacement, it should return a 410 Gone status to be de-indexed, correcting the current soft 404.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/periodontic/periodontal-gum-disease" target="_blank" rel="noopener">https://www.puredentalcareny.com/periodontic/periodontal-gum-disease</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/periodontic/periodontal-gum-disease [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 318), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original page was about periodontal gum disease. The current behavior is a soft 404. There is a live page about gum grafting, which is a primary treatment for gum disease, making it a highly relevant and useful redirect target for the user&#x27;s original intent.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/restorative-care/gum-grafting/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/articles/default" target="_blank" rel="noopener">https://www.puredentalcareny.com/articles/default</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/articles/default [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 319), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The URL for a default articles page is currently redirecting to a &#x27;page deleted&#x27; placeholder. It should redirect to the main blog page, which serves the user&#x27;s intent to find articles.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/blog/" target="_blank" rel="noopener">https://www.puredentalcareny.com/blog/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/surgery-instructions/" target="_blank" rel="noopener">https://www.puredentalcareny.com/surgery-instructions/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/surgery-instructions/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 320), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was for post-surgery instructions. Since no current live page serves this purpose, and the site owner&#x27;s intent was for a 410, the server should be configured to return a proper 410 Gone status code instead of redirecting to a soft 404 page.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/contact-us/" target="_blank" rel="noopener">https://www.puredentalcareny.com/contact-us/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/contact-us/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 321), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL was a &#x27;Contact Us&#x27; page, which is critical for users. The current redirect to a &#x27;page deleted&#x27; placeholder is incorrect. The &#x27;New Patient Dental Exam&#x27; page is the most relevant available target for users trying to contact the practice to become a patient.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/payment-and-financial-information/" target="_blank" rel="noopener">https://www.puredentalcareny.com/payment-and-financial-information/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/payment-and-financial-information/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 322), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about payment and financial information. None of the current live pages cover this administrative topic, so there is no suitable redirect target. The current redirect to a &#x27;page deleted&#x27; placeholder that returns a 200 status is incorrect; the URL should return a proper 410 status to signal its removal to search engines.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/occlusal-splints-nightguards/" target="_blank" rel="noopener">https://www.puredentalcareny.com/occlusal-splints-nightguards/</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/occlusal-splints-nightguards/ [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 323), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Wrong target</b> (high confidence) — The original page was about occlusal splints and nightguards. The site has a new, live page covering this exact topic, so the redirect should point there instead of to a &#x27;page deleted&#x27; placeholder.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/treatments/preventative-care/nightguards/" target="_blank" rel="noopener">https://www.puredentalcareny.com/treatments/preventative-care/nightguards/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/vip-amenities" target="_blank" rel="noopener">https://www.puredentalcareny.com/vip-amenities</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/vip-amenities [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 332), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about VIP amenities. None of the current live pages cover the patient experience or office amenities, so there is no relevant page to redirect to. The site owner&#x27;s intent was already to 410 this page, which is the correct action.</div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/zocdoc" target="_blank" rel="noopener">https://www.puredentalcareny.com/zocdoc</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/zocdoc [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 333), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should redirect</b> (high confidence) — The original URL /zocdoc was for booking appointments via the Zocdoc service. The best available live page to serve this user intent is the one for new patient exams, as it directly relates to scheduling an appointment with the practice.</div>
+      <div class="suggest">→ suggested: <a href="https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/" target="_blank" rel="noopener">https://www.puredentalcareny.com/new-patient-dental-exam-new-york-city/</a></div>
+    </div>
+    <div class="durl conflict">
+      <h3><a href="https://www.puredentalcareny.com/platelet-rich-plasma-prp" target="_blank" rel="noopener">https://www.puredentalcareny.com/platelet-rich-plasma-prp</a></h3>
+      <div class="t">Redirects → 200</div>
+      <div class="chain">https://www.puredentalcareny.com/platelet-rich-plasma-prp [302] → https://www.puredentalcareny.com/410-page/ [200]</div>
+      <div class="reason conflict"><b>Rule mismatch</b> — Declared 410 Gone (line 334), but the site answers with a redirect to a page returning 200 — the rule is being overridden, so no removal signal reaches Google.</div>
+      <div class="reason"><b>Should be 410</b> (high confidence) — The original page was about Platelet-Rich Plasma (PRP). None of the current live pages cover this specific treatment, so there is no relevant page to redirect to. The URL should return a 410 status to signal its permanent removal.</div>
+    </div>
+  </div>
+
+  <div>
+    <h2>Results without a matched URL (19)</h2>
+    <div class="unresolved">
+      These titles appeared in the search results but couldn't be tied to a
+      specific URL, so they were not checked. Usually they are duplicates of a
+      page already listed above. Look them up individually if in doubt:
+      <ul>
+        <li>Pure Dental Care: Dentist New York City | Advanced ... — <a href="https://www.google.com/search?q=%22Pure%20Dental%20Care%3A%20Dentist%20New%20York%20City%20%7C%20Advanced%20...%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Bridges New York NY | Replace Single or Multiple ... — <a href="https://www.google.com/search?q=%22Dental%20Bridges%20New%20York%20NY%20%7C%20Replace%20Single%20or%20Multiple%20...%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Natural-looking Dental Veneers New York City — <a href="https://www.google.com/search?q=%22Natural-looking%20Dental%20Veneers%20New%20York%20City%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Our Blogs - New York NY - Pure Dental Care — <a href="https://www.google.com/search?q=%22Our%20Blogs%20-%20New%20York%20NY%20-%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Treatments New York City | Pure Dental Care — <a href="https://www.google.com/search?q=%22Dental%20Treatments%20New%20York%20City%20%7C%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Custom Sports Mouthguards New York City - Pure Dental Care — <a href="https://www.google.com/search?q=%22Custom%20Sports%20Mouthguards%20New%20York%20City%20-%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Bonding New York City | Fix Cosmetic Imperfections in ... — <a href="https://www.google.com/search?q=%22Dental%20Bonding%20New%20York%20City%20%7C%20Fix%20Cosmetic%20Imperfections%20in%20...%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Dental Sealants New York City | Protect Your Teeth from ... — <a href="https://www.google.com/search?q=%22Dental%20Sealants%20New%20York%20City%20%7C%20Protect%20Your%20Teeth%20from%20...%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Invisalign® New York City | Teeth Straightening with Clear ... — <a href="https://www.google.com/search?q=%22Invisalign%C2%AE%20New%20York%20City%20%7C%20Teeth%20Straightening%20with%20Clear%20...%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Testimonials | Patient Success Stories New York City — <a href="https://www.google.com/search?q=%22Testimonials%20%7C%20Patient%20Success%20Stories%20New%20York%20City%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Patient Success Stories New York City - Pure Dental Care — <a href="https://www.google.com/search?q=%22Patient%20Success%20Stories%20New%20York%20City%20-%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Preventive Dentistry Services New York City | Pure Dental Care — <a href="https://www.google.com/search?q=%22Preventive%20Dentistry%20Services%20New%20York%20City%20%7C%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Smile Gallery | Pure Dental Care | New York City — <a href="https://www.google.com/search?q=%22Smile%20Gallery%20%7C%20Pure%20Dental%20Care%20%7C%20New%20York%20City%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Gum Grafting New York NY | Gum Recession Treatment — <a href="https://www.google.com/search?q=%22Gum%20Grafting%20New%20York%20NY%20%7C%20Gum%20Recession%20Treatment%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Your First Visit to the Dentist | Pure Dental Care | New York City — <a href="https://www.google.com/search?q=%22Your%20First%20Visit%20to%20the%20Dentist%20%7C%20Pure%20Dental%20Care%20%7C%20New%20York%20City%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Contact Us | Book Your Consultation | New York City — <a href="https://www.google.com/search?q=%22Contact%20Us%20%7C%20Book%20Your%20Consultation%20%7C%20New%20York%20City%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Emergency Dentistry New York City - Pure Dental Care — <a href="https://www.google.com/search?q=%22Emergency%20Dentistry%20New%20York%20City%20-%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Implant Overdentures New York City - Pure Dental Care — <a href="https://www.google.com/search?q=%22Implant%20Overdentures%20New%20York%20City%20-%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+        <li>Restorative Dentistry Services New York City | Pure Dental Care — <a href="https://www.google.com/search?q=%22Restorative%20Dentistry%20Services%20New%20York%20City%20%7C%20Pure%20Dental%20Care%22%20site%3Ahttps%3A//www.puredentalcareny.com/" target="_blank" rel="noopener">search for it</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot">
+    45 page(s) flagged as needing a fix out of 63 indexed URLs checked.
+    <b>Should redirect</b> = send it to the suggested live page.
+    <b>Wrong target</b> = it already redirects, but somewhere unrelated.
+    <b>Should be 410</b> = nothing live serves that visitor, so return 410 Gone rather
+    than leaving a bare 404. A plain 404 is never treated as a correct outcome.
+  </div>
+</div>
+</body>
+</html>
